@@ -1,0 +1,437 @@
+<?php
+
+/**
+ * @file
+ * Youtube field module adds a field for YouTube videos.
+ */
+require_once (dirname(__FILE__) . '/youtube.inc');
+ 
+/**
+ * Implements hook_menu().
+ */
+function youtube_menu() {
+  $items['admin/config/media/youtube'] = array(
+    'title' => 'YouTube settings', 
+    'page callback' => 'drupal_get_form', 
+    'page arguments' => array('youtube_settings_form'),
+    'access arguments' => array('administer youtube'), 
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function youtube_permission() {
+  return array(
+    'administer youtube' => array(
+      'title' => t('Administer YouTube field'), 
+      'description' => t('Set default configurations for YouTube field settings.'),
+    ),
+  );
+}
+
+/**
+ * Settings form for YouTube field module.
+ */
+function youtube_settings_form($form) {
+  $form = array();
+  $form['text'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p>' . t('The following settings will be used as default values 
+      on all YouTube video fields.  Many of these settings can be overridden
+      on a per-field basis.') . '</p>',
+  );
+  $form['youtube_privacy'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable privacy-enhanced mode'),
+    '#default_value' => variable_get('youtube_privacy', FALSE),
+    '#description' => t('Checking this box will prevent YouTube from setting cookies in your site visitors browser.'),
+  );
+  $form['youtube_wmode'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Fix overlay problem on IE8 and lower'),
+    '#default_value' => variable_get('youtube_wmode', TRUE),
+    '#description' => t('Checking this will fix the issue of a YouTube video showing above a modal window (including Drupal\'s Overlay). This is needed if you have Overlay users in IE or have modal windows throughout your site.'),
+  );
+  $form['youtube_suggest'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show suggested videos when the video finishes'),
+    '#default_value' => variable_get('youtube_suggest', TRUE),
+  );
+  $form['youtube_thumb_dir'] = array(
+    '#type' => 'textfield',
+    '#title' => t('YouTube thumbnail directory'),
+    '#field_prefix' => variable_get('file_public_path', conf_path() . '/files') . '/',
+    '#field_suffix' => '/thumbnail.png',
+    '#description' => t('Location, within the files directory, where you would like the YouTube thumbnails stored.'),
+    '#default_value' => variable_get('youtube_thumb_dir', 'youtube'),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_field_info().
+ */
+function youtube_field_info() {
+  return array(
+    // We name our field as the associative name of the array.
+    'youtube' => array(
+      'label' => t('YouTube video'),
+      'description' => t('A video hosted on YouTube.'),
+      'default_widget' => 'youtube',
+      'default_formatter' => 'youtube_video',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_validate().
+ */
+function youtube_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+  foreach ($items as $delta => $item) {
+    if (!empty($item['input'])) {
+
+      $valid = FALSE;
+      // Video URL in the format http://www.youtube.com/watch?v=1SqBdS0XkV4.
+      if (strstr($item['input'], 'youtube.com/watch?v=')) {
+        $valid = TRUE;
+      }
+      // Video URL in the format http://youtu.be/1SqBdS0XkV4.
+      elseif (strstr($item['input'], 'youtu.be/')) {
+        $valid = TRUE;
+      }
+
+      if (!$valid) {
+        $errors[$field['field_name']][$langcode][$delta][] = array(
+          'error' => 'youtube_invalid',
+          'message' => t('Please provide a valid YouTube URL.'),
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function youtube_field_is_empty($item, $field) {
+  return empty($item['input']);
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function youtube_field_formatter_info() {
+  $formatters =  array(
+    // This formatter displays your youtube video.
+    'youtube_video' => array(
+      'label' => t('YouTube video'),
+      'field types' => array('youtube'),
+      'settings' => array(
+        'youtube_size' => '420x315',
+        'youtube_width' => NULL,
+        'youtube_height' => NULL,
+        'youtube_autoplay' => FALSE,
+      ),
+    ),
+    // This formatter just displays a thumbnail for your video.
+    'youtube_thumbnail' => array(
+      'label' => t('YouTube thumbnail'),
+      'field types' => array('youtube'),
+      'settings' => array(
+        'image_style' => 'thumbnail',
+        'image_link' => '',
+      ),
+    ),
+  );
+
+  return $formatters;
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function youtube_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  if ($display['type'] == 'youtube_video') {
+    $element['youtube_size'] = array(
+      '#type' => 'select',
+      '#title' => t('YouTube video size'),
+      '#options' => youtube_size_options(),
+      '#default_value' => $settings['youtube_size'],
+    );
+    $element['youtube_width'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Width'),
+      '#size' => 10,
+      '#default_value' => $settings['youtube_width'],
+      '#states' => array(
+        'visible' => array(
+          ':input[name="fields[' . $field['field_name'] . '][settings_edit_form][settings][youtube_size]"]' => array('value' => 'custom'),
+        ),
+      ),
+    );
+    $element['youtube_height'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Height'),
+      '#size' => 10,
+      '#default_value' => $settings['youtube_height'],
+      '#states' => array(
+        'visible' => array(
+          ':input[name="fields[' . $field['field_name'] . '][settings_edit_form][settings][youtube_size]"]' => array('value' => 'custom'),
+        ),
+      ),
+    );
+    $element['youtube_autoplay'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Play video automatically when loaded (Autoplay).'),
+      '#default_value' => $settings['youtube_autoplay'],
+    );
+  }
+
+  if ($display['type'] == 'youtube_thumbnail') {
+    $element['image_style'] = array(
+      '#type' => 'select',
+      '#title' => t('Image style'),
+      '#options' => image_style_options(FALSE),
+      '#default_value' => $settings['image_style'],
+      '#empty_option' => t('None (original image)'),
+    );
+
+    // Option to link the thumbnail to either it's original node or original youtube video.
+    $link_types = array(
+      'content' => t('Content'),
+      'youtube' => t('YouTube'),
+    );
+    $element['image_link'] = array(
+      '#title' => t('Link image to'),
+      '#type' => 'select',
+      '#default_value' => $settings['image_link'],
+      '#empty_option' => t('Nothing'),
+      '#options' => $link_types,
+    );
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function youtube_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  // Summary for the video style.
+  if ($display['type'] == 'youtube_video') {
+    $video_sizes = youtube_size_options();
+    if (isset($video_sizes[$settings['youtube_size']])) {
+      $summary = t('YouTube video: @size', array('@size' => $video_sizes[$settings['youtube_size']]));
+    }
+    else {
+      $summary = t('YouTube video: 450px by 315px');
+    }
+    if ($settings['youtube_autoplay']) {
+      $summary .= t(', Autoplay');
+    }
+    return $summary;
+  }
+
+  // Summary for the thumbnail style.
+  if ($display['type'] == 'youtube_thumbnail') {
+    $image_styles = image_style_options(FALSE);
+    // Unset possible 'No defined styles' option.
+    unset($image_styles['']);
+    if (isset($image_styles[$settings['image_style']])) {
+      $summary = t('Image style: @style', array('@style' => $image_styles[$settings['image_style']]));
+    }
+    else {
+      $summary = t('Original image');
+    }
+    $link_types = array(
+      'content' => ' ' . t('linked to content'),
+      'youtube' => ' ' . t('linked to YouTube'),
+    );
+    // Display this setting only if image is linked.
+    if (isset($settings['image_link']) && isset($link_types[$settings['image_link']])) {
+      $summary .= $link_types[$settings['image_link']];
+    }
+    return $summary;
+  }
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function youtube_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    // This formatter outputs the youtube embed code.
+    case 'youtube_video':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#theme' => 'youtube_video',
+          '#video_id' => $item['video_id'],
+          '#size' => array_key_exists('youtube_size', $display['settings']) ? $display['settings']['youtube_size']: NULL,
+          '#width' => array_key_exists('youtube_width', $display['settings']) ? $display['settings']['youtube_width'] : NULL,
+          '#height' => array_key_exists('youtube_height', $display['settings']) ? $display['settings']['youtube_height'] : NULL,
+          '#autoplay' => array_key_exists('youtube_autoplay', $display['settings']) ? $display['settings']['youtube_autoplay'] : FALSE,
+        );
+      }
+      break;
+
+    // This formatter uses an imagecache preset to generate a thumbnail.
+    case 'youtube_thumbnail':
+
+      // Check if the formatter involves a link.
+      if (isset($display['settings']['image_link'])) {
+        if ($display['settings']['image_link'] == 'content') {
+          $uri = entity_uri($entity_type, $entity);
+          $uri['options']['html'] = TRUE;
+        }
+        elseif ($display['settings']['image_link'] == 'youtube') {
+          $link_youtube = TRUE;
+        }
+      }
+
+      foreach ($items as $delta => $item) {
+        // If the thumbnail is linked to it's youtube page, take the original url.
+        if (isset($link_youtube) && $link_youtube) {
+          $uri = array(
+            'path' => $item['input'],
+            'options' => array('html' => TRUE),
+          );
+        }
+
+        $element[$delta] = array(
+          '#theme' => 'youtube_thumbnail',
+          '#video_id' => $item['video_id'],
+          '#image_style' => $display['settings']['image_style'],
+          '#image_link' => isset($uri) ? $uri : '',
+        );
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function youtube_field_widget_info() {
+  return array(
+    'youtube' => array(
+      'label' => t('YouTube'),
+      'field types' => array('youtube'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function youtube_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $value = isset($items[$delta]['input']) ? $items[$delta]['input'] : '';
+
+  $element += array(
+    '#type' => 'textfield',
+    '#default_value' => $value,
+    '#size' => 60,
+    '#maxlength' => 1024,
+    '#element_validate' => array('youtube_input_validate'),
+    //'#value_callback' => 'youtube_widget_value',
+  );
+
+  // Add our own description if one is not provided by the UI.
+  if ($element['#description'] == '') {
+    $element['#description'] = t('Enter the YouTube URL. Valid URL formats 
+      include: http://www.youtube.com/watch?v=1SqBdS0XkV4 and 
+      http://youtu.be/1SqBdS0XkV4');
+  }
+  $return = array('input' => $element);
+
+  if (isset($items[$delta]['video_id'])) {
+    $video_id_element = array(
+      '#markup' => '<div class="youtube-video-id">' . t('YouTube video ID: ') . $items[$delta]['video_id'] . '</div>',
+    );
+    $return['video_id'] = $video_id_element;
+  }
+
+  return $return;
+}
+
+/**
+ * Validation for the youtube field itself.
+ */
+function youtube_input_validate($element, &$form_state, $form) {
+  $input = $element['#value'];
+  $valid = FALSE;
+
+  // The video URL in the format http://youtube.com/watch?v=1SqBdS0XkV4.
+  if (strstr($input, 'youtube.com/watch?v=')) {
+    $valid = TRUE;
+    $anchor = '?v=';
+    $position = strpos($input, $anchor);
+    $video_id = trim(substr($input, $position + strlen($anchor)));
+    // Remove additional query parameters.
+    if ($amp = strpos($video_id, '&')) {
+      $video_id = substr($video_id, 0, $amp);
+    }
+  }
+  
+  // The video URL in the format http://youtu.be/1SqBdS0XkV4.
+  elseif (strstr($input, 'youtu.be/')) {
+    $valid = TRUE;
+    $anchor = 'be/';
+    $position = strpos($input, $anchor);
+    $video_id = trim(substr($input, $position + strlen($anchor)));
+    // Remove additional query parameters.
+    if ($param = strpos($video_id, '?')) {
+      $video_id = substr($video_id, 0, $param);
+    }
+  }
+  
+  if ($valid) {
+    $video_id_element = array(
+      '#parents' => $element['#parents'],
+    );
+    array_pop($video_id_element['#parents']);
+    $video_id_element['#parents'][] = 'video_id';
+    form_set_value($video_id_element, $video_id, $form_state);
+  }
+}
+
+/**
+ * Implements hook_field_widget_error().
+ */
+function youtube_field_widget_error($element, $error, $form, &$form_state) {
+  switch ($error['error']) {
+    case 'youtube_invalid':
+      form_error($element, $error['message']);
+      break;
+  }
+}
+
+/**
+ * Implements of hook_theme().
+ */
+function youtube_theme($existing, $type, $theme, $path) {
+  return array(
+    'youtube_thumbnail' => array(
+      'variables' => array('video_id' => NULL, 'image_style' => NULL, 'image_link' => NULL),
+      'file' => 'youtube.theme.inc',
+    ),
+    'youtube_video' => array(
+      'variables' => array('video_id' => NULL, 'size' => NULL, 'width' => NULL, 'height' => NULL, 'autoplay' => FALSE),
+      'file' => 'youtube.theme.inc',
+    ),
+  );
+}

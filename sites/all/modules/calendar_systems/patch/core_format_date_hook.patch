@@ -1,0 +1,20 @@
+--- common.inc	Tue Oct 16 16:51:03 2012
++++ common.inc	Tue Oct 16 16:50:38 2012
+@@ -1890,6 +1890,17 @@
+     $drupal_static_fast['timezones'] = &drupal_static(__FUNCTION__);
+   }
+   $timezones = &$drupal_static_fast['timezones'];
++  
++  // Calendar Systems module new hook (The actual hook is hook_format_date this one is only a workaround to 
++  // prevent incompatibility with modules that already have a function called module_name_format_date)
++  foreach (module_implements('format_date_calendar_systems') AS $module) {
++    $function = $module .'_format_date_calendar_systems';
++    $r = $function($timestamp, $type, $format, $timezone, $langcode);
++    
++    if ($r != FALSE) {
++      return $r;
++    }
++  }
+ 
+   if (!isset($timezone)) {
+     $timezone = date_default_timezone_get();

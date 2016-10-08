@@ -1,0 +1,23 @@
+name = Views PDF Display
+description = "Views plugin to export a view as a PDF file."
+dependencies[] = views
+package = Views
+core = 7.x
+
+
+files[] = views_pdf_plugin_display.inc
+files[] = views_pdf_plugin_style_table.inc
+files[] = views_pdf_plugin_style_unformatted.inc
+files[] = views_pdf_plugin_row_fields.inc
+
+
+; Handlers
+files[] = field_plugins/views_pdf_handler_page_number.inc
+files[] = field_plugins/views_pdf_handler_page_break.inc
+
+; Information added by drupal.org packaging script on 2011-07-10
+version = "7.x-1.0-rc1"
+core = "7.x"
+project = "views_pdf"
+datestamp = "1310290321"
+

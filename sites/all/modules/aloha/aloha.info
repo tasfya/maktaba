@@ -1,0 +1,12 @@
+name = Aloha Editor
+description = Allows you to edit content, with the Aloha Editor, without going to the edit page.
+package = User interface
+core = 7.x
+dependencies[] = libraries
+
+; Information added by drupal.org packaging script on 2012-04-12
+version = "7.x-1.0-alpha7"
+core = "7.x"
+project = "aloha"
+datestamp = "1334233837"
+

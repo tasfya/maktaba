@@ -1,0 +1,74 @@
+<?php
+class SimpletestUnitTestExampleTestCase extends DrupalWebTestCase  {
+
+    public static function getInfo() {
+        // Note: getInfo() strings should not be translated.
+        return array(
+            'name' => 'Simpletest CalendarSystems unit tests',
+            'description' => 'Test that CalendarSystems works properly.',
+            'group' => 'CalendarSystem',
+        );
+
+    }
+
+    /**
+     * setUp() performs any pre-requisite tasks that need to happen.
+     */
+    public function setUp() {
+        // Enable any modules required for the test.
+        parent::setUp('calendar_systems');;
+    }
+
+    /**
+     *
+     */
+    function testCalendarSystemsConversion() {
+        $message="Jalali Date To Gregorian Conversion does not work properly";
+        $result=true;
+        $calendar = calendar_systems_get_calendar_instance();
+        for($y = 1300; $y<=1400; $y++){
+            for($m = 1; $m<=12; $m++){
+                for($d = 1; $d<= $calendar->daysInMonth($m-1, 'jalali'); $d++){
+                    $fadate = $y.'/'.str_pad($m, 2, "0", STR_PAD_LEFT).'/'.str_pad($d, 2, "0", STR_PAD_LEFT);
+                    $_infoArray_fadate = split('/', $fadate);
+                    $_infoArray_fadate = array(
+                        'year' => $_infoArray_fadate[0],
+                        'month' => $_infoArray_fadate[1],
+                        'day' => $_infoArray_fadate[2],
+                    );
+                    $timestamp_birthdaf = $calendar->infoArrayToTimestamp($_infoArray_fadate);
+                    $birthdaf_val = date('Y-m-d', $timestamp_birthdaf);
+                    $birthdaf_val_timestamp = $calendar->strToTimestamp($birthdaf_val);
+                    $check_date = format_date($birthdaf_val_timestamp,'custom','Y/m/d');
+                    if($fadate != $check_date){
+                        $result=false;
+                        $message.=" \n $fadate : $check_date";
+                        //print($fadate);
+                        //echo '<br />';
+                        //print($check_date);
+                        //echo '<br />';
+                        //echo '<hr />';
+                    }
+                }
+            }
+        }
+
+        $this->assertTrue($result, $message);
+    }
+
+    /**
+     * Detect if we're running on Drupal.org's automated testbot.
+     *
+     * This is used inside the edit test so that the testbot skips intentionally
+     * failing tests. Otherwise, it would mark this module as broken.
+     *
+     * For more information on the testbot, see http://qa.drupal.org/.
+     *
+     * @return boolean
+     *   TRUE if running on testbot.
+     */
+    public function runningOnTestbot() {
+        $testbot_code_directory = "../checkout";
+        return file_exists($testbot_code_directory);
+    }
+}

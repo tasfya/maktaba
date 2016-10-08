@@ -1,0 +1,10 @@
+name = Module Instructions
+description = Show module README.txt and INSTALL.txt files in module list.
+core = 7.x
+
+; Information added by drupal.org packaging script on 2012-04-16
+version = "7.x-1.0"
+core = "7.x"
+project = "module_instructions"
+datestamp = "1334600799"
+

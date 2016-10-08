@@ -1,0 +1,250 @@
+<?php
+
+/**
+ * @file
+ * Main hook implementation and functions for the module_instructions module.
+ *
+ * Shows README and INSTALL info for modules in module list.
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter() for system_modules().
+ */
+function module_instructions_form_system_modules_alter(&$form, &$form_state, $form_id) {
+  // $form_state['storage'] is empty only for the module list view.
+  if (!empty($form_state['storage'])) {
+    return;
+  }
+
+  // Different structure if module_filter enabled.
+  if (module_exists('module_filter')) {
+    // Loop on modules.
+    foreach ($form['modules'] as $module => $item) {
+      // Check if array is really a module.
+      if (is_array($item) && isset($item['links'])) {
+        if ($readme = _module_instructions_file_exists($module, 'README.txt')) {
+          $form['modules'][$module]['links']['readme'] = _module_instructions_create_link_array($module, 'Readme', $readme);
+        }
+        if ($install = _module_instructions_file_exists($module, 'INSTALL.txt')) {
+          $form['modules'][$module]['links']['install'] = _module_instructions_create_link_array($module, 'Install', $install);
+        }
+      }
+    }
+    // Expand colspace for two new links.
+    if (isset($form['modules']['#header'][4]['colspan'])) {
+      $form['modules']['#header'][4]['colspan'] = 5;
+    }
+  }
+
+  // Module module_filter not enabled (default).
+  else {
+    // Loop on module groups.
+    foreach ($form['modules'] as $group => $gname) {
+      // Loop on modules.
+      if (is_array($gname)) {
+        foreach ($gname as $module => $item) {
+          // Check if array is really a module.
+          if (is_array($item) && isset($item['links'])) {
+            if ($readme = _module_instructions_file_exists($module, 'README.txt')) {
+              $form['modules'][$group][$module]['links']['readme'] = _module_instructions_create_link_array($module, 'Readme', $readme);
+            }
+            if ($install = _module_instructions_file_exists($module, 'INSTALL.txt')) {
+              $form['modules'][$group][$module]['links']['install'] = _module_instructions_create_link_array($module, 'Install', $install);
+            }
+          }
+        }
+      }
+      // Expand colspace for two new links.
+      if (isset($form['modules'][$group]['#header'][4]['colspan'])) {
+        $form['modules'][$group]['#header'][4]['colspan'] = 5;
+      }
+    }
+  }
+}
+
+/**
+ * Create array for readme and install links.
+ */
+function _module_instructions_create_link_array($module, $type, $name) {
+  return array(
+    '#type' => 'link',
+    '#title' => t('@type', array('@type' => $type)),
+    '#href' => 'admin/modules/module_instructions/' . $module . '/' . $name,
+    '#options' => array(
+      'attributes' => array(
+        'class' => array(
+          'module-link',
+          'module-link-' . strtolower($type),
+        ),
+        'title' => t('@type', array('@type' => $type)),
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function module_instructions_theme_registry_alter(&$theme_registry) {
+  if (!empty($theme_registry['system_modules_fieldset'])) {
+    $theme_registry['system_modules_fieldset']['function'] = '_module_instructions_system_modules_fieldset';
+  }
+  if (!empty($theme_registry['module_filter_modules_table'])) {
+    $theme_registry['module_filter_modules_table']['function'] = '_module_instructions_module_filter_modules_table';
+  }
+}
+
+/**
+ * Fixed function from system.admin.inc.
+ *
+ * Edited this line to allow other links -> foreach (array('help',
+ * 'permissions', 'configure', 'readme', 'install') as $key).
+ */
+function _module_instructions_system_modules_fieldset($variables) {
+  $form = $variables['form'];
+
+  // Individual table headers.
+  $rows = array();
+  // Iterate through all the modules, which are
+  // Children of this fieldset.
+  foreach (element_children($form) as $key) {
+    // Stick it into $module for easier accessing.
+    $module = $form[$key];
+    $row = array();
+    unset($module['enable']['#title']);
+    $row[] = array('class' => array('checkbox'), 'data' => drupal_render($module['enable']));
+    $label = '<label';
+    if (isset($module['enable']['#id'])) {
+      $label .= ' for="' . $module['enable']['#id'] . '"';
+    }
+    $row[] = $label . '><strong>' . drupal_render($module['name']) . '</strong></label>';
+    $row[] = drupal_render($module['version']);
+    // Add the description, along with any modules it requires.
+    $description = drupal_render($module['description']);
+    if ($module['#requires']) {
+      $description .= '<div class="admin-requirements">' . t('Requires: !module-list', array('!module-list' => implode(', ', $module['#requires']))) . '</div>';
+    }
+    if ($module['#required_by']) {
+      $description .= '<div class="admin-requirements">' . t('Required by: !module-list', array('!module-list' => implode(', ', $module['#required_by']))) . '</div>';
+    }
+    $row[] = array('data' => $description, 'class' => array('description'));
+    // Display links (such as help or permissions) in their own columns.
+    foreach (array('help', 'permissions', 'configure', 'readme', 'install') as $key) {
+      $row[] = array('data' => drupal_render($module['links'][$key]), 'class' => array($key));
+    }
+    $rows[] = $row;
+  }
+
+  return theme('table', array('header' => $form['#header'], 'rows' => $rows));
+}
+
+/**
+ * Rewrited theme in case module_filter is enabled.
+ *
+ * Only needed to add readme and install in foreach().
+ */
+function _module_instructions_module_filter_modules_table($variables) {
+  $form = $variables['form'];
+
+  // Individual table headers.
+  $rows = array();
+  // Iterate through all the modules, which are
+  // Children of this fieldset.
+  foreach (element_children($form) as $key) {
+    // Stick it into $module for easier accessing.
+    $module = $form[$key];
+    $row = array();
+    unset($module['enable']['#title']);
+    $row[] = array('class' => array('checkbox'), 'data' => drupal_render($module['enable']));
+    $label = '<label';
+    if (isset($module['enable']['#id'])) {
+      $label .= ' for="' . $module['enable']['#id'] . '"';
+    }
+    $row[] = $label . '><strong>' . drupal_render($module['name']) . '</strong></label>';
+    $row[] = drupal_render($module['version']);
+    // Add the description, along with any modules it requires.
+    $description = drupal_render($module['description']);
+    if ($module['#requires']) {
+      $description .= '<div class="admin-requirements">' . t('Requires: !module-list', array('!module-list' => implode(', ', $module['#requires']))) . '</div>';
+    }
+    if ($module['#required_by']) {
+      $description .= '<div class="admin-requirements">' . t('Required by: !module-list', array('!module-list' => implode(', ', $module['#required_by']))) . '</div>';
+    }
+    $row[] = array('data' => $description, 'class' => array('description'));
+    // Display links (such as help or permissions) in their own columns.
+    foreach (array('help', 'permissions', 'configure', 'readme', 'install') as $key) {
+      $row[] = array('data' => drupal_render($module['links'][$key]), 'class' => array($key));
+    }
+
+    $id = module_filter_get_id($module['#package']);
+    $rows[] = array(
+      'data' => $row,
+      'class' => array($id . '-tab-content'),
+    );
+  }
+
+  return theme('table', array(
+    'header' => $form['#header'],
+    'rows' => $rows,
+    'attributes' => array('class' => array('package')),
+    )
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function module_instructions_menu() {
+  $items = array();
+  $items['admin/modules/module_instructions/%/%'] = array(
+    'title callback' => 'module_instructions_custom_title',
+    'title arguments' => array(3, 4),
+    'page callback' => 'module_instructions_show',
+    'page arguments' => array(3, 4),
+    'access arguments' => array('administer modules'),
+  );
+  return $items;
+}
+
+/**
+ * Title callback: Creates a title for the README/INSTALL page from module and file's name.
+ */
+function module_instructions_custom_title($module, $file) {
+  return format_string('@module (@file)', array('@module' => $module, '@file' => $file));
+}
+
+/**
+ * Page callback: Displays README and INSTALL files.
+ */
+function module_instructions_show($module, $file) {
+  $fullpath = drupal_get_path('module', $module) . '/' . $file;
+  $filter = new stdClass();
+  $filter->settings = array(
+    'filter_url_length' => 256,
+  );
+  if (file_exists($fullpath)) {
+    return '<pre>' . check_markup(_filter_url(file_get_contents($fullpath), $filter), 'filtered_html') . '</pre>';
+  }
+}
+
+/**
+ * Gets other possible filenames (README, readme.txt, INSTALL, install.txt).
+ */
+function _module_instructions_file_exists($module, $file) {
+  $fullpath = drupal_get_path('module', $module) . '/' . $file;
+  // Check if default name exists (README.txt, INSTALL.txt).
+  if (file_exists($fullpath)) {
+    return $file;
+  }
+  // Check if there is a file without ".txt" suffix (README, INSTALL).
+  elseif (file_exists(substr($fullpath, 0, -4))) {
+    return substr($file, 0, -4);
+  }
+  // Check if file with lowercases exists (readme.txt, install.txt).
+  elseif (file_exists(strtolower($fullpath))) {
+    return strtolower($file);
+  }
+  else {
+    return FALSE;
+  }
+}

@@ -1,0 +1,14 @@
+name = Views Field
+description = "Views plugin to include a view as a field."
+dependencies[] = views
+package = Views
+core = 7.x
+
+files[] = views_view_field_handler_include_view.inc
+
+; Information added by drupal.org packaging script on 2011-07-10
+version = "7.x-1.0-rc1"
+core = "7.x"
+project = "views_pdf"
+datestamp = "1310290321"
+

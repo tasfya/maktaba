@@ -1,0 +1,12 @@
+#zone-branding, #zone-menu, #breadcrumb, #region-sidebar-first, #region-sidebar-second, .node-links, .field-name-field-recipe-tags {
+  display:none;
+}
+#region-content, #zone-content {
+  width: auto; 
+  margin: 0 5%;
+  padding: 0; 
+  border: 0;
+  float: none !important;
+  color: black; 
+  background: transparent;
+}

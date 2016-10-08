@@ -1,0 +1,13 @@
+name = Domain Navigation
+description = Navigation block and menu options for Domain Access
+package = Domain Access
+dependencies[] = domain
+core = 7.x
+stylesheets[all][] = domain_nav.css
+
+; Information added by Drupal.org packaging script on 2015-08-02
+version = "7.x-3.12"
+core = "7.x"
+project = "domain"
+datestamp = "1438530847"
+

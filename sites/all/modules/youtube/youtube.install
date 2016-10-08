@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file
+ * Install, update, and uninstall functions for the youtube module.
+ */
+
+/**
+ * Implements hook_field_schema().
+ */
+function youtube_field_schema($field) {
+  $columns = array(
+    'input' => array(
+      'type' => 'varchar', 
+      'length' => 1024, 
+      'not null' => FALSE,
+    ),
+    'video_id' => array(
+      'type' => 'varchar', 
+      'length' => 15, 
+      'not null' => FALSE,
+    ),
+  );
+  $indexes = array(
+    'video_id' => array('video_id'),
+  );
+  return array(
+    'columns' => $columns,
+    'indexes' => $indexes,
+  );
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function youtube_uninstall() {
+  // Delete youtube variables when module is removed.
+  variable_del('youtube_suggest');
+  variable_del('youtube_privacy');
+  variable_del('youtube_thumb_dir');
+  variable_del('youtube_wmode');
+}

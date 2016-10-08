@@ -1,0 +1,6 @@
+.jp-play-bar, .jp-volume-bar-value {
+  float:left;
+}
+.jp-controls li {
+float: right;
+} 

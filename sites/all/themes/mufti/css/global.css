@@ -1,0 +1,268 @@
+/* This file will hold styles for the mobile version of your website (mobile first). */
+/* This also can include ANY global CSS that applies site-wide. Unless overwritten by a more specific style rule, CSS declarations in global.css will apply site-wide. */
+@font-face {
+  font-family:'GE SS';
+  src:url('fonts/ge-ss-med.eot?#iefix') format('embedded-opentype'),
+    url('fonts/ge-ss-med.ttf') format('truetype');
+  font-weight:normal;
+}
+
+@font-face {
+  font-family:'GE SS';
+  src:url('fonts/ge-ss-bold.eot?#iefix') format('embedded-opentype'),
+    url('fonts/ge-ss-bold.ttf') format('truetype');
+  font-weight:bold;
+}
+
+h2,h1{
+	font-family:'GE SS';
+	font-weight: normal;
+	color: #585858;
+	margin-bottom: 0px;
+}
+
+p{
+	margin-bottom: 10px;
+}
+#page li,ul li.leaf{
+list-style: none; 
+}
+
+a:link, a:visited {
+color: #0062A0;
+text-decoration: none;
+}
+tr.even td {
+background: #ebebeb;
+}
+tr:hover td, tr.even:hover td.active, tr.odd:hover td.active {
+background: #d0e4f0;
+}
+
+.clear{
+	clear: both;
+}
+
+#zone-content,#zone-header {
+margin-top: 15px;
+}
+
+body {
+  background: url(images/bg.jpg);
+}
+#zone-branding {
+background: #fff;
+padding: 10px 0;
+}
+#region-branding .site-name {
+color: white;
+text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+padding: 100px 10px;
+background: #8B8B8B;
+font-size: 40px;
+text-align: center;
+margin: 0;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width:100% !important;
+}
+.sticky #more-information {
+position: absolute;
+top: 0;
+left: -322px;
+}
+.sticky #region-user-first {
+margin: 0 auto !important;
+float: none;
+display: block;
+}
+.sticky #region-user-second {
+position: relative;
+}
+
+#zone-menu {
+background: url(images/overlay.png) repeat-x #1573B1;
+color: white;
+-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+border: none;
+margin-bottom: 3px;
+padding: 10px 0;
+}
+#zone-menu a:link, #zone-menu a:visited {
+color: #fff;
+}
+/*
+#zone-menu #jp_container_1 {
+height: 32px;
+}
+
+#more-information {
+padding: 0 20px;
+}
+*/
+
+.front table{
+margin-bottom: 0px;
+}
+.front h2.block-title {
+background: url(images/overlay.png) repeat-x #1573B1;
+color: white;
+-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+border: none;
+margin-bottom: 0;
+padding: 5px 10px;
+}
+
+.front .zone-header .block .content,.front .zone-preface .block .content{
+-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+-webkit-box-shadow: 0 1px 3px rgba(177, 177, 177, 0.6);
+border: 1px solid #ADADAD;
+padding: 1px;
+background: white;
+border-top: none;
+min-height: 144px;
+}
+
+.front .zone-header .block,.front .zone-preface .block{
+	margin-bottom: 15px;
+}
+
+.front #region-preface-first .content {
+padding: 10px;
+}
+
+/*play and download on listing tables*/
+.playlink,.downloadlink{
+float: left;
+padding: 0 0 0 14px;
+background-repeat: no-repeat;
+background-position: left;
+display: block;
+}
+.playlink {
+background-image: url(images/play.png);
+background-repeat: no-repeat;
+background-position: -31px 4px;
+}
+.downloadlink{
+	background-image: url(images/download.png);
+	margin:0 0 0 14px; 
+}
+
+
+
+
+/**/
+
+/*Sticky jplayer*/
+#block-views-jplayer-block-block {
+border-radius: 0 0 15px 15px;
+box-shadow: 0 4px 4px rgba(0,0,0,0.05);
+border: 2px solid #DAD3CB;
+border-top: none;
+height: 65px;
+background: white;
+background: rgba(255,255,255,0.95);
+padding-top: 20px;
+}
+
+/**/
+
+/*inner-content*/
+.page-node .zone-content,.page-biography .zone-content {
+background: whiteSmoke;
+padding: 10px 0;
+}
+
+.page-node .region-content,.page-biography .region-content {
+background: white;
+}
+
+.page-node .field-name-field-audio {
+margin-bottom: 10px;
+}
+
+.page-node .field-name-field-date{
+font-size: 11px;
+color: #888
+}
+.page-node .node,.page-biography #block-system-main{
+padding: 10px;
+}
+
+.page-node h1,.page-biography h1,.context-facet h1 {
+font-size: 22px;
+text-align: center;
+margin-bottom: 0px;
+}
+
+.field-name-body{
+	margin-top: 10px;
+}
+
+.page-node #region-content,.page-biography #region-content {
+padding-top: 12px;
+}
+/**/
+
+/*listing*/
+
+/*facet api*/
+.block.block-facetapi {
+border-style: solid;
+border-width: 1px;
+border-color: #E4E4E0 #E4E4E0 #D4D4D0;
+padding: 10px 5px 9px;
+margin: -1px 0px 0px;
+background: white;
+}
+
+.block-facetapi a {
+text-decoration: none;
+font-size: 12px;
+}
+
+.block-facetapi a span {
+display: block;
+margin-bottom: 1px;
+font-weight: normal;
+}
+
+.facet-link {
+color: #0062A0;
+width: 90%;
+float: left;
+}
+.facet-count {
+float: right;
+width: 10%;
+color: #CCC;
+}
+
+h2.block-title {
+font-size: 18px;
+margin: 0;
+}
+
+.block-facetapi .item-list ul {
+margin: 0;
+}
+/*end of facet api*/
+
+/*end of listing*/
+
+/*jplayer */
+.jp-playlist {
+display: none;
+}
+
+/**/
