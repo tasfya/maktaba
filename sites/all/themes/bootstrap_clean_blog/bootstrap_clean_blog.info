@@ -1,0 +1,40 @@
+name = Bootstrap Clean Blog
+description = A Bootstrap Clean Blog sub-theme.
+core = 7.x
+base theme = bootstrap
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Regions
+;;;;;;;;;;;;;;;;;;;;;
+
+regions[help] = 'Help'
+regions[content] = 'Content'
+regions[footer] = 'Footer primary'
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Theme Settings
+;;;;;;;;;;;;;;;;;;;;;
+
+; Header
+; --------------
+settings[header_image] = 'none'
+
+; Social links
+; --------------
+settings[social_facebook] = 'https://www.facebook.com'
+settings[social_twitter] = 'https://twitter.com'
+settings[social_github] = 'https://github.com'
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Stylesheets
+;;;;;;;;;;;;;;;;;;;;;
+
+stylesheets[all][] = assets/css/clean-blog.css
+stylesheets[all][] = assets/css/theme.css
+
+; Information added by Drupal.org packaging script on 2016-01-16
+version = "7.x-1.0"
+core = "7.x"
+project = "bootstrap_clean_blog"
+datestamp = "1452968958"
+

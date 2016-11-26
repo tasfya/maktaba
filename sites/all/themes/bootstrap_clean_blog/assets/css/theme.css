@@ -1,0 +1,23 @@
+.site-heading h1 {
+  word-wrap: break-word;
+}
+.post-preview .post-subtitle {
+  margin: 0;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+.navbar-default .navbar-nav > .active > a {
+  color: #fff;
+  background-color: transparent;
+}
+
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .active > a:hover {
+  color: rgba(255, 255, 255, .8);
+  background-color: transparent;
+}
+
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  background-color: transparent;
+}
