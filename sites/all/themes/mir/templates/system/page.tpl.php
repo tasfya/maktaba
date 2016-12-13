@@ -5,6 +5,15 @@
         <a class="logo flip navbar-btn pull-left" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
           <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
         </a>
+        <div class="social-icons">
+          <ul class="list-inline ">
+            <li><a href="http://bit.ly/1dTnfr9" title="تطبيق الاندرويد " target="_blank"><i class="fa fa-android"></i></a></li>
+            <li><a href="http://bit.ly/miraathios" title="تطبيق ابل"><i class="fa fa-apple"></i></a></li>
+            <li><a href="https://twitter.com/miraathnet" title="Twitter"><i class="fa fa-twitter-square"></i></a></li>
+            <li><a href="https://www.facebook.com/admin.ar.miraath" title="Facebook"><i class="fa fa-facebook-square"></i></a></li>
+            <li><a href="https://www.youtube.com/user/MiraathNet" title="Youtube"><i class="fa fa-youtube-square"></i></a></li>
+          </ul>
+        </div>
       <?php endif; ?>
 
       <?php if (!empty($primary_nav) || !empty($secondary_nav) || !empty($page['navigation'])): ?>
@@ -22,9 +31,6 @@
         <nav role="navigation">
           <?php if (!empty($primary_nav)): ?>
             <?php print render($primary_nav); ?>
-          <?php endif; ?>
-          <?php if (!empty($secondary_nav)): ?>
-            <?php print render($secondary_nav); ?>
           <?php endif; ?>
           <?php if (!empty($page['navigation'])): ?>
             <?php print render($page['navigation']); ?>
@@ -75,6 +81,11 @@
         <ul class="action-links"><?php print render($action_links); ?></ul>
       <?php endif; ?>
       <?php print render($page['content']); ?>
+      <?php
+      if(drupal_is_front_page()){
+        require(drupal_get_path('theme', 'mir').'/templates/system/front-content.tpl.php');
+      }
+      ?>
     </section>
 
     <?php if (!empty($page['sidebar_second'])): ?>
@@ -91,3 +102,11 @@
     <?php print render($page['footer']); ?>
   </footer>
 <?php endif; ?>
+<div class="sticky-bottom">
+  <div id="audio-player-wrapper">
+    <audio id="audio-player" controls>
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>
+
