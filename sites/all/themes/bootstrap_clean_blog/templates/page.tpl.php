@@ -103,8 +103,7 @@
 
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
-<header class="intro-header"
-        style="background-image: url('<?php print $header_image; ?>')">
+<header class="intro-header">
   <div class="container">
     <div class="row">
       <?php if (isset($node)): ?>
@@ -192,5 +191,10 @@
         <?php print render($page['footer']); ?>
       </div>
     </div>
+  </div>
+  <div id="audio-player-wrapper">
+    <audio id="audio-player" controls>
+      Your browser does not support the audio element.
+    </audio>
   </div>
 </footer>

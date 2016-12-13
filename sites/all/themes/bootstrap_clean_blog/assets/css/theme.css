@@ -21,3 +21,12 @@
 .navbar-default .navbar-form {
   background-color: transparent;
 }
+
+nav.navbar.navbar-default.navbar-custom.navbar-fixed-top {
+    background: #757474 url(http://rabee.net/ar/images/bgblock02.png);
+}
+
+body header.intro-header {
+	background-image: url(/sites/all/themes/bootstrap_clean_blog/assets/img/home-bg.jpg); !important
+}
+
