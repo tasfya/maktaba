@@ -1,0 +1,82 @@
+/* $Id: views.ticker.scroller.css,v 1.1 2008/04/14 13:11:32 vvn Exp $ */
+/* Default styles */
+.views-scroller-horizontal-container {
+ width: 600px;
+ height: 40px;
+ overflow: hidden;
+}
+
+.views-scroller-horizontal-item {
+ display:inline;
+ margin-right: 20px;
+}
+
+.views-scroller-vertical-container {
+ width: 210px;
+ height: 160px;
+ overflow: hidden;
+}
+
+.views-scroller-vertical-item {
+ margin-top: 20px;
+}
+.views-scroller-vertical-item span {
+display: block;
+}
+ 
+ /* Jscroller styles: DO NOT EDIT! */
+ .jscroller2_up, .jscroller2_down, .jscroller2_left, .jscroller2_right {
+ margin: 0;
+ padding: 0;
+}
+
+.jscroller2_left, .jscroller_right, .jscroller2_left_endless, .jscroller2_right_endless {
+ white-space: nowrap;
+}
+
+
+/* liScroll styles */
+
+.liScroll-container { /* the outer div with the black border */
+/*	border: 1px solid #000; */
+/*	background: #fff; */
+	width: 738px; 
+	height: 27px; 
+	margin: 0; 
+	padding: 0;
+	overflow: hidden; 
+}
+
+.liScroll-container .mask { /* that serves as a mask. so you get a sort of padding both left and right */
+	position: relative;
+	left: 10px;
+	top: 8px;
+	width: 718px;
+	overflow: hidden;
+}
+
+ul.liScroll { /* that's your list */
+	position: relative;
+	left: 750px;
+	font: bold 10px Verdana;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.liScroll li {
+	float: left; /* important: display inline gives incorrect results when you check for elem's width */
+	margin: 0;
+	padding: 0;
+}
+
+ul.liScroll a {
+	white-space: nowrap;
+	padding: 0;
+	margin: 0 50px 0 0;
+} 
+
+ul.liScroll span {
+	margin: 0 10px 0 0;
+}
+

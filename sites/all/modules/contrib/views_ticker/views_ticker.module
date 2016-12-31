@@ -1,0 +1,46 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Provide a scrolling items display style for Views.
+ *
+ * This is a placeholder file so drupal will enable the module. All logic is contained in
+ * other files located with the module.
+ * see http://jscroller2.markusbordihn.de/docs/ for usage of js
+ */
+
+
+/**
+ * Implements hook_help().
+ */
+function views_ticker_help($path, $arg) {
+  switch ($path) {
+ 	default:
+      $output="";
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+
+function views_ticker_theme() {
+  return array(
+    'views_ticker' => array(
+      'variables' => array('items' => NULL, 'options' => NULL, 'identifier' => NULL),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_views_api().
+ */
+function views_ticker_views_api() {
+  return array(
+    'api' => 2.0,
+    'path' => drupal_get_path('module', 'views_ticker') . '/includes',
+  );
+}
