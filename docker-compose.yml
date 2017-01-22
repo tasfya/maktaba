@@ -1,0 +1,28 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql-server
+    links:
+      - mysql-server:mysql
+    volumes:
+      - .:/var/www/html
+    container_name: maktaba_drupal
+    entrypoint: ./drupal-entrypoint.sh
+    command: [apache2-foreground]
+
+  mysql-server:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: drupal
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: drupal
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/exports:/docker-entrypoint-initdb.d
+    container_name: maktaba_mysql
+

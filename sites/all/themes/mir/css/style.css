@@ -9,17 +9,23 @@ body{
   background: url(../images/head.png);
   background-repeat: no-repeat;
   width: 100%;
+  padding-bottom: 100px;
 }
-a{
+a, .navbar-default .navbar-nav > li > a {
 	color: #065A6A;
   -webkit-transition: all .25s;
   -moz-transition: all .25s;
   transition: all .25s;
 }
-a:hover{
+a:hover, .navbar-default .navbar-nav > li > a:hover {
 	color: #067280;
 }
-
+li{
+  list-style: none;
+}
+.field-label{
+  color: #0894a5
+}
 .navbar-default {
   background-color: transparent;
   border: 0;
@@ -51,17 +57,38 @@ a:hover{
   text-align:center;
   padding:20px;
 	color: #fff;
-  background-color: #000000;
-  position: absolute;
+  background-color: #ccc;
+  position: fixed;
   left: 0;
   bottom: 0;
   height: 60px;
   width: 100%;
-  display: none;
 }
-
 .sticky-bottom audio{
   display: inline-block;
   vertical-align: baseline;
   width: 73%;
 }
+.ticker-wrapper {
+  background: #f1f1f1;
+  font-size: 16px;
+  line-height: 35px;
+}
+.ticker-wrapper ul{
+  margin-bottom: 0px;
+}
+.ticker-wrapper h3{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background-color: #c5ecf1;
+  padding: 8px;
+  color: #0894A5;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/*Fatawa detail*/
+.node-fatawa .field{
+    margin: 25px 0;
+}
+/*End Fatawa detail*/

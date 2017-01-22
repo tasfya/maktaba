@@ -1,3 +1,12 @@
+##With Docker:
+```
+docker-compose up
+```
+
+
+##Without Docker:
+Create your database and import db/exports/maktaba.sql.gz
+
 Run :
 ```bash
 echo "<?php
@@ -6,9 +15,9 @@ echo "<?php
   array (
     'default' =>
     array (
-      'database' => 'maktaba',
-      'username' => 'root',
-      'password' => 'password',
+      'database' => 'DATABASE_NAME',
+      'username' => 'DATABASE_USER',
+      'password' => 'DATABASE_PASSEWORD',
       'host' => '127.0.0.1',
       'port' => '',
       'driver' => 'mysql',

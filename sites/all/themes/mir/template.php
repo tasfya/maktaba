@@ -10,5 +10,14 @@ function mir_preprocess_html(&$vars) {
 function mir_preprocess_page(&$vars){
 	$vars['latest_conferences'] =
 		views_embed_view('front_latest_content', 'latest_conferences');
-	dpm(views_embed_view('front_latest_content', 'latest_conferences'));
+	$vars['recent_content_ticker'] =
+		views_embed_view('recent_content_ticker');
+
+	if(drupal_is_front_page()){
+		mir_preprocess_front_page($vars);
+	}
+}
+function mir_preprocess_front_page(&$vars){
+	$vars['front_carousel'] =
+		views_embed_view('front_carousel');
 }
