@@ -8,6 +8,12 @@ var Drupal = Drupal || {};
 			 	audio_player.src = audiofile;
 			 	audio_player.play();
 			}
+
+	    $('.field-name-field-audio a').on('click', function(e){
+	    	e.preventDefault();
+	    	play($(this).attr('href'));
+	    });
+
     }
   }
 })(jQuery,Drupal);

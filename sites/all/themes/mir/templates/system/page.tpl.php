@@ -39,6 +39,16 @@
       </div>
     <?php endif; ?>
   </div>
+  <div class="ticker-wrapper">
+    <div class="row">
+      <div class="col-sm-2">
+        <h3>جديد الموقع</h3>
+      </div>
+      <div class="col-sm-10">
+        <?php print $recent_content_ticker; ?>
+      </div>
+    </div>
+  </div>
 </header>
 
 <div class="main-container <?php print $container_class; ?>">
