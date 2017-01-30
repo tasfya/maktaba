@@ -92,3 +92,20 @@ li{
     margin: 25px 0;
 }
 /*End Fatawa detail*/
+
+.playlink, .downloadlink {
+  float: left;
+  padding: 0 0 0 14px;
+  background-repeat: no-repeat;
+  background-position: left;
+  display: block;
+}
+.playlink {
+  background-image: url(/sites/all/themes/mir/images/play.png);
+  background-repeat: no-repeat;
+  background-position: -31px 4px;
+}
+.downloadlink {
+  background-image: url(/sites/all/themes/mir/images/download.png);
+  margin: 0 0 0 14px;
+}

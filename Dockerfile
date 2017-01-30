@@ -1,4 +1,4 @@
-FROM php:7-apache
+FROM php:5-apache
 RUN a2enmod rewrite
 
 # install the PHP extensions we need (git for Composer, mysql-client for mysqldump)

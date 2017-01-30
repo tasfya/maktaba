@@ -9,7 +9,7 @@ var Drupal = Drupal || {};
 			 	audio_player.play();
 			}
 
-	    $('.field-name-field-audio a').on('click', function(e){
+	    $('.field-name-field-audio a, a.play').on('click', function(e){
 	    	e.preventDefault();
 	    	play($(this).attr('href'));
 	    });
