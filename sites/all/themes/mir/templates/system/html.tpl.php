@@ -67,8 +67,9 @@
     <script src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
   <link rel="stylesheet" href="//cdn.rawgit.com/morteza/bootstrap-rtl/v3.3.4/dist/css/bootstrap-rtl.min.css">
-
+  <link type="text/css" href="/sites/all/themes/mir/css/jplayer.blue.monday.css" rel="stylesheet" />
   <?php print $scripts; ?>
+  <script type="text/javascript" src="/sites/all/themes/mir/js/jquery.jplayer.min.js"></script>
 </head>
 <body<?php print $body_attributes; ?>>
   <div id="skip-link">

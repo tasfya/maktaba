@@ -54,8 +54,8 @@ li{
 }
 .sticky-bottom {
   /* just for demo */
-  text-align:center;
-  padding:20px;
+  text-align: center;
+  padding: 0;
 	color: #fff;
   background-color: #ccc;
   position: fixed;
@@ -63,11 +63,6 @@ li{
   bottom: 0;
   height: 60px;
   width: 100%;
-}
-.sticky-bottom audio{
-  display: inline-block;
-  vertical-align: baseline;
-  width: 73%;
 }
 .ticker-wrapper {
   background: #f1f1f1;
