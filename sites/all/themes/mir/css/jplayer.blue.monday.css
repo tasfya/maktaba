@@ -409,17 +409,15 @@ span.jp-artist {
 }
 
 .jp-jplayer {
-  background-color: #000000;
+  background-color: #000;
 }
 
 /* @group TOGGLES */
 /* The audio toggles are nested inside jp-time-holder */
 .jp-toggles {
-  padding: 0;
-  /* margin: 0; */
   margin-left: 5px;
+  margin-top: -1px;
   overflow: hidden;
-  /* float: right; */
   display: inline;
   float: right;
 }
