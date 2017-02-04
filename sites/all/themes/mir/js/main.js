@@ -3,10 +3,11 @@ var Drupal = Drupal || {};
   Drupal.behaviors.mir = {
     attach: function (context, settings) {
       function play(audiofile) {
-        var audioPlayer = document.getElementById('audio-player');
-        audioPlayer.removeAttribute('src');
-        audioPlayer.src = audiofile;
-        audioPlayer.play();
+        $('#jquery_jplayer_1').jPlayer('setMedia', {
+          title: 'Audio loaded !!',
+          mp3: audiofile
+        });
+        $('#jquery_jplayer_1').jPlayer('play');
       }
 
       $('.field-name-field-audio a, a.play').on('click', function (e) {
@@ -25,7 +26,7 @@ var Drupal = Drupal || {};
           },
           cssSelectorAncestor: '#jp_container_1',
           swfPath: '/js',
-          supplied: 'm4a, oga',
+          supplied: 'm4a,ogg,mp3',
           useStateClassSkin: true,
           autoBlur: false,
           smoothPlayBar: true,

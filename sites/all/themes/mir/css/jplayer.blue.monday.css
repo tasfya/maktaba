@@ -299,16 +299,19 @@
 /* @end */
 /* @group playlist */
 .jp-details {
-  font-weight: bold;
-  text-align: center;
+  /* font-weight: bold; */
+  text-align: left;
   cursor: default;
 }
 
 .jp-details,
 .jp-playlist {
   width: 100%;
-  background-color: #ccc;
+  /* background-color: #ccc; */
   border-top: 1px solid #009be3;
+  position: absolute;
+  top: -1px;
+  left: 90px;
 }
 
 .jp-type-single .jp-details,
