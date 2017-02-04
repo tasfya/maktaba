@@ -5,16 +5,16 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - mysql-server
-    links:
-      - mysql-server:mysql
+      - mysql
     volumes:
       - .:/var/www/html
     container_name: maktaba_drupal
     entrypoint: ./drupal-entrypoint.sh
     command: [apache2-foreground]
+    networks:
+      - private-network
 
-  mysql-server:
+  mysql:
     image: mysql
     environment:
       MYSQL_DATABASE: drupal
@@ -24,5 +24,14 @@ services:
     volumes:
       - ./db/data:/var/lib/mysql
       - ./db/exports:/docker-entrypoint-initdb.d
-    container_name: maktaba_mysql
+    networks:
+      - private-network
 
+  elastic-search:
+    image: elasticsearch:5.2.0-alpine
+    networks:
+      - private-network
+
+networks:
+  private-network:
+    driver: bridge
