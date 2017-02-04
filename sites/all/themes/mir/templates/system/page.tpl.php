@@ -135,10 +135,10 @@
         </div>
         <div class="jp-time-holder">
           <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-          <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
           <div class="jp-toggles">
             <button class="jp-repeat" role="button" tabindex="0">repeat</button>
           </div>
+          <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
         </div>
       </div>
       <div class="jp-details">
