@@ -113,35 +113,43 @@
   </footer>
 <?php endif; ?>
 <div class="sticky-bottom">
-  <div id="jquery_jplayer_1" class="jp-jplayer light webPlayer"></div>
+  <div id="jquery_jplayer_1" class="jp-jplayer"></div>
   <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
-    <div class="jp-type-single">
-      <div class="jp-gui jp-interface">
-        <div class="jp-controls">
+    <div class="jp-type-single container">
+      <div class="jp-gui jp-interface row">
+        <div class="jp-volume-controls hidden-xs col-sm-3 col-md-2">
+          <div class="col-xs-3">
+            <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+          </div>
+          <div class="col-xs-6 jp-volume-bar-container">
+            <div class="jp-volume-bar">
+              <div class="jp-volume-bar-value"></div>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <button class="jp-mute" role="button" tabindex="0">mute</button>
+          </div>
+        </div>
+        <div class="jp-center col-xs-offset-1 col-sm-offset-0 col-xs-8 col-sm-7 col-md-8 col-lg-9">
+          <div class="jp-details">
+            <div class="jp-title" aria-label="title">&nbsp;</div>
+          </div>
+          <div class="jp-progress">
+            <div class="jp-seek-bar">
+              <div class="jp-play-bar"></div>
+            </div>
+          </div>
+          <div class="jp-time-holder">
+            <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+            <div class="jp-toggles">
+              <button class="jp-repeat" role="button" tabindex="0">repeat</button>
+            </div>
+            <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+          </div>
+        </div>
+        <div class="jp-controls col-xs-3 col-sm-2 col-md-2 col-lg-1">
           <button class="jp-play" role="button" tabindex="0">play</button>
           <button class="jp-stop" role="button" tabindex="0">stop</button>
-        </div>
-        <div class="jp-progress">
-          <div class="jp-seek-bar">
-            <div class="jp-play-bar"></div>
-          </div>
-        </div>
-        <div class="jp-volume-controls">
-          <button class="jp-mute" role="button" tabindex="0">mute</button>
-          <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
-          <div class="jp-volume-bar">
-            <div class="jp-volume-bar-value"></div>
-          </div>
-        </div>
-        <div class="jp-details">
-          <div class="jp-title" aria-label="title">&nbsp;</div>
-        </div>
-        <div class="jp-time-holder">
-          <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-          <div class="jp-toggles">
-            <button class="jp-repeat" role="button" tabindex="0">repeat</button>
-          </div>
-          <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
         </div>
       </div>
       <div class="jp-no-solution">

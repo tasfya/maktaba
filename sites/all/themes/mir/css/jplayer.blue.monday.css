@@ -14,6 +14,7 @@
  * Skin Version: 5.1 (jPlayer 2.8.0)
  * Date: 13th November 2014
  */
+
 .jp-audio *:focus,
 .jp-audio-stream *:focus {
   /* Disable the browser focus highlighting. */
@@ -32,26 +33,23 @@
   font-family: Verdana, Arial, sans-serif;
   line-height: 1.6;
   color: #666;
-  /* border: 1px solid #009be3; */
+  border: 1px solid #009be3;
   background-color: #ececec;
   direction: ltr;
   width: 100%;
-  /* height: 50px; */
+  height: 50px;
 }
 
 .jp-interface {
-  position: relative;
   background-color: #ececec;
-  width: 100%;
 }
 
 .jp-audio .jp-interface {
-  height: 50px;
-  border: 1px solid #009be3;
+  height: 48px;
 }
 
 .jp-audio-stream .jp-interface {
-  height: 50px;
+  height: 48px;
 }
 
 
@@ -72,9 +70,13 @@
   overflow: hidden;
 }
 
+.jp-interface .jp-center {
+  padding: 0;
+}
+
 .jp-audio .jp-controls {
-  /*width: 380px;*/
   padding: 5px 10px 0;
+  text-align: right;
 }
 
 .jp-audio-stream .jp-controls {
@@ -85,8 +87,6 @@
 }
 
 .jp-controls button {
-  display: block;
-  float: left;
   overflow: hidden;
   text-indent: -9999px;
   border: 0;
@@ -121,7 +121,17 @@
 
 .jp-stop {
   background: url("../images/jplayer.blue.monday.jpg") 0 -83px no-repeat;
-  margin-left: 10px;
+  margin-left: 5px;
+}
+
+@media screen and (max-width: 390px) {
+  .jp-stop {
+    margin-left: 0;
+  }
+  .jp-audio .jp-controls {
+    padding-right: 5px;
+    padding-left: 0;
+  }
 }
 
 .jp-stop:focus {
@@ -158,13 +168,11 @@
 }
 
 .jp-audio .jp-type-single .jp-progress {
-  left: 110px;
-  width: 79%;
+  width: 100%;
 }
 
 .jp-audio .jp-type-playlist .jp-progress {
-  left: 166px;
-  width: 130px;
+  width: 100%;
 }
 
 .jp-seek-bar {
@@ -187,24 +195,16 @@
 
 /* @end */
 /* @group volume controls */
-.jp-state-no-volume .jp-volume-controls {
+.jp-state-no-volume .jp-volume-controls div {
   display: none;
 }
 
 .jp-volume-controls {
-  position: absolute;
   top: 18px;
-  right: 10px;
-  width: 120px;
-}
-
-.jp-audio-stream .jp-volume-controls {
-  left: 70px;
 }
 
 .jp-volume-controls button {
   display: block;
-  position: absolute;
   overflow: hidden;
   text-indent: -9999px;
   border: 0;
@@ -243,13 +243,8 @@
 }
 
 .jp-volume-bar {
-  position: absolute;
   overflow: hidden;
   background: url("../images/jplayer.blue.monday.jpg") 0 -250px repeat-x;
-  top: 5px;
-  left: 22px;
-  width: 70px;
-  height: 5px;
   cursor: pointer;
 }
 
@@ -259,28 +254,20 @@
   height: 5px;
 }
 
+.jp-volume-bar-container {
+  top: 5px;
+  padding: 0;
+}
+
 /* @end */
 /* @group current time and duration */
 .jp-audio .jp-time-holder {
-  position: absolute;
   top: 30px;
-}
-
-.jp-audio .jp-type-single .jp-time-holder {
-  left: 110px;
-  width: 79%;
-}
-
-.jp-audio .jp-type-playlist .jp-time-holder {
-  left: 166px;
-  width: 130px;
 }
 
 .jp-current-time,
 .jp-duration {
-  /* width: 60px; */
   font-size: .64em;
-  /* font-style: oblique; */
 }
 
 .jp-current-time {
@@ -299,24 +286,8 @@
 /* @end */
 /* @group playlist */
 .jp-details {
-  /* font-weight: bold; */
-  text-align: left;
+  text-align: center;
   cursor: default;
-}
-
-.jp-details,
-.jp-playlist {
-  width: 100%;
-  /* background-color: #ccc; */
-  border-top: 1px solid #009be3;
-  position: absolute;
-  top: -1px;
-  left: 90px;
-}
-
-.jp-type-single .jp-details,
-.jp-type-playlist .jp-details {
-  border-top: 0;
 }
 
 .jp-details .jp-title {
@@ -422,10 +393,6 @@ span.jp-artist {
   float: right;
 }
 
-.jp-audio .jp-type-single .jp-toggles {
-  width: 25px;
-}
-
 .jp-audio .jp-type-playlist .jp-toggles {
   width: 55px;
   margin: 0;
@@ -502,7 +469,7 @@ span.jp-artist {
   padding: 5px;
   font-size: .8em;
   background-color: #ececec;
-  border: 2px solid #009be3;
+  border: 1px solid #009be3;
   color: #000;
   display: none;
 }
