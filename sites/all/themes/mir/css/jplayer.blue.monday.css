@@ -52,7 +52,6 @@
   height: 48px;
 }
 
-
 /* @group CONTROLS */
 .jp-controls-holder {
   clear: both;
@@ -297,75 +296,6 @@
   font-weight: bold;
 }
 
-.jp-playlist ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0 20px;
-  font-size: .72em;
-}
-
-.jp-playlist li {
-  padding: 5px 0 4px 20px;
-  border-bottom: 1px solid #ececec;
-}
-
-.jp-playlist li div {
-  display: inline;
-}
-
-/* Note that the first-child (IE6) and last-child (IE6/7/8) selectors do not work on IE */
-div.jp-type-playlist div.jp-playlist li:last-child {
-  padding: 5px 0 5px 20px;
-  border-bottom: 0;
-}
-
-div.jp-type-playlist div.jp-playlist li.jp-playlist-current {
-  list-style-type: square;
-  list-style-position: inside;
-  padding-left: 7px;
-}
-
-div.jp-type-playlist div.jp-playlist a {
-  color: #333;
-  text-decoration: none;
-}
-
-div.jp-type-playlist div.jp-playlist a:hover {
-  color: #0d88c1;
-}
-
-div.jp-type-playlist div.jp-playlist a.jp-playlist-current {
-  color: #0d88c1;
-}
-
-div.jp-type-playlist div.jp-playlist a.jp-playlist-item-remove {
-  float: right;
-  display: inline;
-  text-align: right;
-  margin-right: 10px;
-  font-weight: bold;
-  color: #666;
-}
-
-div.jp-type-playlist div.jp-playlist a.jp-playlist-item-remove:hover {
-  color: #0d88c1;
-}
-
-div.jp-type-playlist div.jp-playlist span.jp-free-media {
-  float: right;
-  display: inline;
-  text-align: right;
-  margin-right: 10px;
-}
-
-div.jp-type-playlist div.jp-playlist span.jp-free-media a {
-  color: #666;
-}
-
-div.jp-type-playlist div.jp-playlist span.jp-free-media a:hover {
-  color: #0d88c1;
-}
-
 span.jp-artist {
   font-size: .8em;
   color: #666;
@@ -393,14 +323,6 @@ span.jp-artist {
   float: right;
 }
 
-.jp-audio .jp-type-playlist .jp-toggles {
-  width: 55px;
-  margin: 0;
-  position: absolute;
-  left: 325px;
-  top: 50px;
-}
-
 .jp-toggles button {
   display: block;
   float: left;
@@ -411,23 +333,6 @@ span.jp-artist {
   /* need this for IE6 */
   border: 0;
   cursor: pointer;
-}
-
-.jp-full-screen {
-  background: url("../images/jplayer.blue.monday.jpg") 0 -310px no-repeat;
-  margin-left: 20px;
-}
-
-.jp-full-screen:focus {
-  background: url("../images/jplayer.blue.monday.jpg") -30px -310px no-repeat;
-}
-
-.jp-state-full-screen .jp-full-screen {
-  background: url("../images/jplayer.blue.monday.jpg") -60px -310px no-repeat;
-}
-
-.jp-state-full-screen .jp-full-screen:focus {
-  background: url("../images/jplayer.blue.monday.jpg") -90px -310px no-repeat;
 }
 
 .jp-repeat {
@@ -444,23 +349,6 @@ span.jp-artist {
 
 .jp-state-looped .jp-repeat:focus {
   background: url("../images/jplayer.blue.monday.jpg") -90px -290px no-repeat;
-}
-
-.jp-shuffle {
-  background: url("../images/jplayer.blue.monday.jpg") 0 -270px no-repeat;
-  margin-left: 5px;
-}
-
-.jp-shuffle:focus {
-  background: url("../images/jplayer.blue.monday.jpg") -30px -270px no-repeat;
-}
-
-.jp-state-shuffled .jp-shuffle {
-  background: url("../images/jplayer.blue.monday.jpg") -60px -270px no-repeat;
-}
-
-.jp-state-shuffled .jp-shuffle:focus {
-  background: url("../images/jplayer.blue.monday.jpg") -90px -270px no-repeat;
 }
 
 /* @end */
