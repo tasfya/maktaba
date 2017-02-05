@@ -20,13 +20,12 @@ var Drupal = Drupal || {};
           ready: function () {
             $(this).jPlayer('setMedia', {
               title: 'Bubble',
-              m4a: 'http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a',
-              oga: 'http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg'
+              mp3: 'https://archive.org/download/testmp3testfile/mpthreetest.mp3'
             });
           },
           cssSelectorAncestor: '#jp_container_1',
           swfPath: '/js',
-          supplied: 'm4a,ogg,mp3',
+          supplied: 'mp3',
           useStateClassSkin: true,
           autoBlur: false,
           smoothPlayBar: true,
