@@ -99,16 +99,21 @@
   </div>
 </div>
 
-<?php if (!empty($page['footer'])): ?>
+<!-- <?php if (!empty($page['footer'])): ?>
   <footer class="footer <?php print $container_class; ?>">
     <?php print render($page['footer']); ?>
   </footer>
-<?php endif; ?>
+<?php endif; ?> -->
 <div class="sticky-bottom">
-  <div id="audio-player-wrapper">
+  <div id="audio-player-wrapper" class="audio-player-wrapper">
+    <div class="toggle-show"><i class="toggle-show-icon fa fa-plus"></i></div>
     <audio id="audio-player" controls>
       Your browser does not support the audio element.
     </audio>
   </div>
 </div>
 
+<footer>
+  <div class="col-sm-offset-1 col-sm-9">© موقع ميراث الأنبياء 2016 جميع الحقوق محفوظة</div>
+  <div class="col-sm-2"></div>
+</footer>

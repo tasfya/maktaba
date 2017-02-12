@@ -14,6 +14,10 @@ var Drupal = Drupal || {};
 	    	play($(this).attr('href'));
 	    });
 
+      $('.toggle-show-icon').on('click', function(event) {
+        $('.sticky-bottom').toggleClass('visible');
+        $('body').toggleClass('player-visible');
+      });
     }
   }
 })(jQuery,Drupal);

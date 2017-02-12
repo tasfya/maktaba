@@ -12,10 +12,12 @@ function mir_preprocess_page(&$vars){
 		views_embed_view('front_latest_content', 'latest_conferences');
 	$vars['recent_content_ticker'] =
 		views_embed_view('recent_content_ticker');
-
+  $vars['theme_path'] =  '/'.drupal_get_path('theme', 'mir').'/';
+  $vars['theme_image_path'] = $vars['theme_path'].'/images/';
 	if(drupal_is_front_page()){
 		mir_preprocess_front_page($vars);
 	}
+
 }
 function mir_preprocess_front_page(&$vars){
 	$vars['front_carousel'] =
