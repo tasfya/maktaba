@@ -493,6 +493,8 @@ function theme_feeds_ui_plugin_form($variables) {
 function feeds_ui_mapping_form($form, &$form_state, $importer) {
   $form['#importer'] = $importer->id;
   $form['#mappings'] = $mappings = $importer->processor->getMappings();
+  $form['#feeds_targets'] = $importer->processor->getMappingTargets();
+  $form['#feeds_sources'] = $importer->parser->getMappingSources();
   $form['help']['#markup'] = feeds_ui_mapping_help();
   $form['#prefix'] = '<div id="feeds-ui-mapping-form-wrapper">';
   $form['#suffix'] = '</div>';
@@ -1032,10 +1034,10 @@ function theme_feeds_ui_container($variables) {
 function theme_feeds_ui_mapping_form($variables) {
   $form = $variables['form'];
 
-  $targets = feeds_importer($form['#importer'])->processor->getMappingTargets();
+  $targets = $form['#feeds_targets'];
   $targets = _feeds_ui_format_options($targets, TRUE);
 
-  $sources = feeds_importer($form['#importer'])->parser->getMappingSources();
+  $sources = $form['#feeds_sources'];
   // Some parsers do not define source options.
   $sources = $sources ? _feeds_ui_format_options($sources, TRUE) : array();
 

@@ -553,3 +553,4 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
 # $conf['allow_authorize_operations'] = FALSE;
 
 include __DIR__.'/settings.local.php';
+$conf['http_request_timeout'] = 100000;

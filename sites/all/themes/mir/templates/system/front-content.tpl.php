@@ -31,6 +31,7 @@
       <div class="tweet-feed">
         <a class="twitter-timeline" href="https://twitter.com/MiraathNet">Tweets by MiraathNet</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
+<!--
 		  <h2 class="title-widget dirc">مواقع ذات صلة </h2>
 		  <a href="http://www.miraathpubs.net" class="custom-button" style="background-color: #0E8C1E;" title="ميراث الأنبياء (English)">
 		    <img src="<?php print $theme_image_path?>english-site-icon.png" alt="" class="custom-button-icon" style="height:50px !important;">
@@ -81,5 +82,6 @@
 		    <em></em>
 		  </a>
 		</div>
+-->
 	</div>
 </div>

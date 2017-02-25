@@ -120,11 +120,13 @@ class FeedsHTTPFetcher extends FeedsFetcher {
     }
     // No subscription notification has ben sent, we are being notified.
     else {
+      $source = feeds_source($this->id, $feed_nid);
       try {
-        feeds_source($this->id, $feed_nid)->existing()->import();
+        $source->existing()->import();
       }
       catch (Exception $e) {
         // In case of an error, respond with a 503 Service (temporary) unavailable.
+        $source->log('import', 'An exception occurred: %exception', array('%exception' => $e->getMessage()), WATCHDOG_ERROR);
         header('HTTP/1.1 503 "Not Found"', NULL, 503);
         drupal_exit();
       }
