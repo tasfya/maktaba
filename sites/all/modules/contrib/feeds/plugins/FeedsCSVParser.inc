@@ -145,10 +145,10 @@ class FeedsCSVParser extends FeedsParser {
       if (strpos($mapping['source'], ',') !== FALSE) {
         $sources[] = '"' . $mapping['source'] . '"';
       }
-      else {
+      elseif (strlen(trim($mapping['source']))) {
         $sources[] = $mapping['source'];
       }
-      if (!empty($mapping['unique'])) {
+      if (!empty($mapping['unique']) && strlen(trim($mapping['source']))) {
         $uniques[] = $mapping['source'];
       }
     }
@@ -293,7 +293,10 @@ class FeedsCSVParser extends FeedsParser {
         $col = '"' . str_replace('"', '""', $col) . '"';
       }
 
-      $columns[] = $col;
+      // Prevent columns without headers from being added to the template.
+      if (strlen(trim($col))) {
+        $columns[] = $col;
+      }
     }
 
     $template_file_details = $this->getTemplateFileDetails($this->config);

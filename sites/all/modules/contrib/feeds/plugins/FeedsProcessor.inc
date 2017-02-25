@@ -146,17 +146,76 @@ abstract class FeedsProcessor extends FeedsPlugin {
    */
   protected function entityValidate($entity) {
     $info = $this->entityInfo();
-    if (empty($info['entity keys']['language'])) {
-      return;
+
+    if (!empty($info['entity keys']['language'])) {
+      // Ensure that a valid language is always set.
+      $key = $info['entity keys']['language'];
+      $languages = language_list('enabled');
+
+      if (empty($entity->$key) || !isset($languages[1][$entity->$key])) {
+        $entity->$key = $this->entityLanguage();
+      };
     }
 
-    // Ensure that a valid language is always set.
-    $key = $info['entity keys']['language'];
-    $languages = language_list('enabled');
+    // Perform field validation if entity is fieldable.
+    if (!empty($info['fieldable'])) {
+      try {
+        field_attach_validate($this->entityType(), $entity);
+      }
+      catch (FieldValidationException $e) {
+        $errors = array();
 
-    if (empty($entity->$key) || !isset($languages[1][$entity->$key])) {
-      $entity->$key = $this->entityLanguage();
+        // Unravel the errors inside the FieldValidationException.
+        foreach ($e->errors as $field_name => $field_errors) {
+          foreach ($field_errors as $langcode => $field_item_errors) {
+            $errors = array_merge($errors, $this->unravelFieldValidationExceptionErrors($field_item_errors));
+          }
+        }
+
+        // Compose error message. If available, use the entity label to indicate
+        // which item failed. Fallback to the GUID value (if available) or else
+        // no indication.
+        $label = entity_label($this->entityType(), $entity);
+        if ($label || $label === '0' || $label === 0) {
+          $message = t("@error in item '@label':", array('@error' => $e->getMessage(), '@label' => $label));
+        }
+        elseif (!empty($entity->feeds_item->guid)) {
+          $message = t("@error in item '@guid':", array('@error' => $e->getMessage(), '@guid' => $entity->feeds_item->guid));
+        }
+        else {
+          $message = $e->getMessage();
+        }
+        // Compose the final error message and throw exception.
+        $message .= theme('item_list', array('items' => $errors));
+        throw new FeedsValidationException($message);
+      }
     }
+  }
+
+  /**
+   * Helper function to unravel error messages hidden in a FieldValidationException.
+   *
+   * @param array $field_item_errors
+   *   The errors for a single field item.
+   *
+   * @return array
+   *   The unraveled error messages.
+   */
+  protected function unravelFieldValidationExceptionErrors($field_item_errors) {
+    $errors = array();
+
+    foreach ($field_item_errors as $field_item_error) {
+      if (isset($field_item_error['message'])) {
+        // Found the error message!
+        $errors[] = $field_item_error['message'];
+      }
+      elseif (is_array($field_item_error)) {
+        // Error message is hidden deeper in the tree.
+        $errors = array_merge($errors, $this->unravelFieldValidationExceptionErrors($field_item_error));
+      }
+    }
+
+    return $errors;
   }
 
   /**

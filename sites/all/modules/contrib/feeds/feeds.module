@@ -53,19 +53,32 @@ function feeds_cron() {
     ->execute();
 
   // Find importers that need to be rescheduled.
-  if (!$importers = feeds_reschedule()) {
-    return;
+  $importers = feeds_reschedule();
+  if ($importers) {
+    // @todo Maybe we should queue this somehow as well. This could be potentially
+    // very long.
+    $sources = db_query("SELECT feed_nid, id FROM {feeds_source} WHERE id IN (:ids)", array(':ids' => $importers));
+
+    foreach ($sources as $source) {
+      feeds_source($source->id, $source->feed_nid)->schedule();
+    }
+
+    feeds_reschedule(FALSE);
   }
 
-  // @todo Maybe we should queue this somehow as well. This could be potentially
-  // very long.
-  $sources = db_query("SELECT feed_nid, id FROM {feeds_source} WHERE id IN (:ids)", array(':ids' => $importers));
-
-  foreach ($sources as $source) {
-    feeds_source($source->id, $source->feed_nid)->schedule();
+  // Sync the files in the cache directory with entries in the cache every now
+  // and then. By default: every six hours.
+  $last_check = variable_get('feeds_sync_cache_feeds_http_last_check');
+  $interval = variable_get('feeds_sync_cache_feeds_http_interval', 21600);
+  if ($last_check < (REQUEST_TIME - $interval)) {
+    // Check first if the task isn't already queued.
+    $queue = DrupalQueue::get('feeds_sync_cache_feeds_http');
+    if ($queue->numberOfItems() < 1) {
+      // Queue sync task.
+      FeedsHTTPCache::getInstance('cache_feeds_http')->startSync();
+    }
+    variable_set('feeds_sync_cache_feeds_http_last_check', REQUEST_TIME);
   }
-
-  feeds_reschedule(FALSE);
 }
 
 /**
@@ -107,6 +120,9 @@ function feeds_cron_queue_info() {
   );
   $queues['feeds_push_unsubscribe'] = array(
     'worker callback' => 'feeds_push_unsubscribe',
+  );
+  $queues['feeds_sync_cache_feeds_http'] = array(
+    'worker callback' => 'feeds_sync_cache_feeds_http',
   );
 
   return $queues;
@@ -157,6 +173,14 @@ function _feeds_queue_worker_helper(array $job, $method) {
   }
 
   return $source;
+}
+
+/**
+ * Scheduler callback for syncing the feeds cache directory with the entries in
+ * the cache.
+ */
+function feeds_sync_cache_feeds_http(array $job) {
+  FeedsHTTPCache::getInstance('cache_feeds_http')->sync($job['files']);
 }
 
 /**
@@ -261,7 +285,12 @@ function feeds_permission() {
  *
  * Declare form callbacks for all known classes derived from FeedsConfigurable.
  */
-function feeds_forms() {
+function feeds_forms($form_id, $args) {
+  // Check if the requested form is a Feeds form.
+  if (!stripos($form_id, '_feeds_form')) {
+    return;
+  }
+
   $forms = array();
   $forms['FeedsImporter_feeds_form']['callback'] = 'feeds_form';
   $plugins = FeedsPlugin::all();
@@ -696,7 +725,7 @@ function feeds_form_node_form_alter(&$form, $form_state) {
     $form['#attributes']['enctype'] = 'multipart/form-data';
 
     // Build form.
-    $source = feeds_source($importer_id, empty($form['#node']->nid) ? 0 : $form['#node']->nid);
+    $source = feeds_source($importer_id, empty($form['#node']->nid) ? NULL : $form['#node']->nid);
     $form['feeds'] = array(
       '#type' => 'fieldset',
       '#title' => t('Feed'),
@@ -753,7 +782,7 @@ function feeds_features_pipe_feeds_importer_alter(&$pipe, $data, &$export) {
  * required if there are any importers using those plugins.
  */
 function feeds_system_info_alter(array &$info, $file, $type) {
-  if ($type !== 'module' || !module_hook($file->name, 'feeds_plugins')) {
+  if ($type !== 'module' || !module_exists($file->name) || !module_hook($file->name, 'feeds_plugins')) {
     return;
   }
 

@@ -18,6 +18,47 @@ class FeedsFileHTTPTestCase extends FeedsWebTestCase {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    parent::setUp();
+
+    // Include FeedsProcessor.inc so processor related constants are available.
+    module_load_include('inc', 'feeds', 'plugins/FeedsProcessor');
+
+    // Do not use curl as that will result into HTTP requests returning a 404.
+    variable_set('feeds_never_use_curl', TRUE);
+  }
+
+  /**
+   * Setup importer to import items from testing/feeds/nodes.csv.
+   */
+  public function setUpImporter() {
+    // Set up an importer.
+    $this->createImporterConfiguration('Node import', 'node');
+    $this->setSettings('node', NULL, array(
+      'content_type' => '',
+      'import_period' => 0,
+    ));
+    $this->setPlugin('node', 'FeedsHTTPFetcher');
+    $this->setPlugin('node', 'FeedsCSVParser');
+    $this->setSettings('node', 'FeedsNodeProcessor', array(
+      'update_existing' => FEEDS_UPDATE_EXISTING,
+    ));
+    $this->addMappings('node', array(
+      0 => array(
+        'source' => 'title',
+        'target' => 'title',
+        'unique' => TRUE,
+      ),
+      1 => array(
+        'source' => 'body',
+        'target' => 'body',
+      ),
+    ));
+  }
+
+  /**
    * Test the Feed URL form.
    */
   public function testFormValidation() {
@@ -42,6 +83,327 @@ class FeedsFileHTTPTestCase extends FeedsWebTestCase {
     $this->drupalPost('import/' . $id, $edit, t('Import'));
     $this->assertText(t('The URL example.com is invalid.'));
     $this->assertFieldByName('feeds[FeedsHTTPFetcher][source]', 'example.com');
+  }
+
+  /**
+   * Tests if the result of a http request can be cached on the file system.
+   *
+   * When a first request is made, the data is retrieved from the given source
+   * url and cached on the file system.
+   * On the second request, send to the same source url, the HTTP header
+   * "If-Modified-Since" is set. This should result into a 304 HTTP status from
+   * the source, as the contents did not change in between. In such case, the
+   * data should be retrieved from the cache.
+   */
+  public function testHttpRequestUsingFileCache() {
+    // Include http request functions.
+    feeds_include_library('http_request.inc', 'http_request');
+
+    // First request.
+    $url = url('testing/feeds/nodes.csv', array('absolute' => TRUE));
+    $result = http_request_get($url);
+
+    // Assert that the first request was successful and was not retrieved from
+    // cache.
+    $this->assertEqual(200, $result->code, 'Request status code is 200.');
+    $this->assertTrue(empty($result->from_cache), 'Request was not retrieved from cache.');
+    // Assert that a file was created.
+    $file_url = 'private://feeds/cache/' . hash('sha256', $url);
+    $this->assertTrue(file_exists($file_url), format_string('The file @file_url exists.', array(
+      '@file_url' => $file_url,
+    )));
+
+    // Reset http_request_get() static cache.
+    drupal_static_reset('http_request_get');
+
+    // Write some garbage to the cached file to ensure that the cache is
+    // retrieved from that file.
+    $garbage = static::randomString(100);
+    file_put_contents($file_url, $garbage);
+
+    // Second request.
+    $result2 = http_request_get($url);
+
+    // Assert that the second request was successful and was retrieved from
+    // cache.
+    $this->assertEqual(200, $result2->code, 'Request status code is 200.');
+    $this->assertTrue(!empty($result2->from_cache), 'Request was retrieved from cache.');
+    $this->assertEqual($garbage, $result2->data, 'The cache came from the file cache.');
+
+    // Assert that the file is removed when caches are cleared.
+    drupal_flush_all_caches();
+    $this->assertFalse(file_exists($file_url), format_string('The file @file_url no longer exists.', array(
+      '@file_url' => $file_url,
+    )));
+  }
+
+  /**
+   * Tests if the source is refetched when the cached file is manually removed.
+   *
+   * A call to http_request_get() should always get us data.
+   */
+  public function testRefetchWhenCachedFileIsRemoved() {
+    // Include http request functions.
+    feeds_include_library('http_request.inc', 'http_request');
+
+    // First request.
+    $url = url('testing/feeds/nodes.csv', array('absolute' => TRUE));
+    $result1 = http_request_get($url);
+
+    // Assert that the first request was successful and was not retrieved from
+    // cache.
+    $this->assertEqual(200, $result1->code, 'Request status code is 200.');
+    $this->assertTrue(empty($result1->from_cache), 'Request was not retrieved from cache.');
+
+    // Reset http_request_get() static cache.
+    drupal_static_reset('http_request_get');
+
+    // Write some garbage to the cached file to ensure that the cache is
+    // retrieved from that file.
+    $file_url = 'private://feeds/cache/' . hash('sha256', $url);
+    $garbage = static::randomString(100);
+    file_put_contents($file_url, $garbage);
+
+    // Second request.
+    $result2 = http_request_get($url);
+
+    // Assert that the second request was successful and was retrieved from
+    // cache.
+    $this->assertEqual(200, $result2->code, 'Request status code is 200.');
+    $this->assertTrue(!empty($result2->from_cache), 'Request was retrieved from cache.');
+    $this->assertEqual($garbage, $result2->data, 'The cache came from the file cache.');
+
+    // Now remove the cached file.
+    drupal_unlink($file_url);
+    $this->assertFalse(file_exists($file_url), format_string('The file @file_url no longer exists.', array(
+      '@file_url' => $file_url,
+    )));
+
+    // Third request.
+    $result3 = http_request_get($url);
+
+    // Assert that the data is refetched, even though the source hasn't changed.
+    $this->assertEqual(200, $result3->code, 'Request status code is 200.');
+    $this->assertTrue(empty($result3->from_cache), 'Request was not retrieved from cache.');
+    $this->assertEqual($result1->data, $result3->data, 'Data is available on the response.');
+  }
+
+  /**
+   * Tests if the data is cached on the file system even when a different cache
+   * class is used.
+   *
+   * This can happen when using Memcache or Redis for all cache bins.
+   */
+  public function testHTTPCacheOverride() {
+    // Revert back to the default cache class.
+    variable_set('cache_class_cache_feeds_http', 'DrupalDatabaseCache');
+
+    // Import. We cannot test with a simple http_request_get() call here,
+    // because there is no way to override a cache class on a single request.
+    // @see _cache_get_object().
+    $this->setUpImporter();
+    $source_url = url('testing/feeds/nodes.csv', array('absolute' => TRUE));
+    $edit = array(
+      'feeds[FeedsHTTPFetcher][source]' => $source_url,
+    );
+    $this->drupalPost('import/node', $edit, t('Import'));
+    $this->assertText('Created 9 nodes');
+
+    // Assert that the raw data is not saved in the database.
+    $count = db_select('cache_feeds_http')
+      ->condition('data', '%Title,Body,published,GUID%', 'LIKE')
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+    $this->assertEqual(0, $count, 'Raw source was not saved in the database.');
+
+    // Assert that a file was created.
+    $file_url = 'private://feeds/cache/' . hash('sha256', $source_url);
+    $this->assertTrue(file_exists($file_url), format_string('The file @file_url exists.', array(
+      '@file_url' => $file_url,
+    )));
+  }
+
+  /**
+   * Tests if cached files are cleaned up even when a different cache class is
+   * used.
+   */
+  public function testCachedFilesCleanupOnHTTPCacheOverride() {
+    // Revert back to the default cache class.
+    variable_set('cache_class_cache_feeds_http', 'DrupalDatabaseCache');
+
+    // Create a real cached file by performing an import.
+    $this->setUpImporter();
+    $source_url = url('testing/feeds/nodes.csv', array('absolute' => TRUE));
+    $edit = array(
+      'feeds[FeedsHTTPFetcher][source]' => $source_url,
+    );
+    $this->drupalPost('import/node', $edit, t('Import'));
+    $this->assertText('Created 9 nodes');
+    $file_url_with_cache_record = 'private://feeds/cache/' . hash('sha256', $source_url);
+
+    // Write a dummy cached file.
+    $dir = 'private://feeds/cache';
+    $file_url_no_cache_record = $dir . '/abc123';
+    file_prepare_directory($dir, FILE_CREATE_DIRECTORY);
+    file_put_contents($file_url_no_cache_record, static::randomString());
+
+    // Trigger cleanup of orphaned cached files.
+    variable_del('feeds_sync_cache_feeds_http_last_check');
+    $this->cronRun();
+
+    // Assert that the dummy cached file has been cleaned up and the other file
+    // still exists.
+    $this->assertFalse(file_exists($file_url_no_cache_record), format_string('The file @file_url no longer exists.', array(
+      '@file_url' => $file_url_no_cache_record,
+    )));
+    $this->assertTrue(file_exists($file_url_with_cache_record), format_string('The file @file_url still exists.', array(
+      '@file_url' => $file_url_with_cache_record,
+    )));
+  }
+
+  /**
+   * Tests if the cron task for cleaning up cached files are run one at a time.
+   */
+  public function testCachedFilesCleanupQueue() {
+    $queue = DrupalQueue::get('feeds_sync_cache_feeds_http');
+
+    // First, make sure that a queue task is only ran every six hours.
+    variable_set('feeds_sync_cache_feeds_http_last_check', REQUEST_TIME);
+
+    // Run cron without executing the queue tasks.
+    feeds_cron();
+
+    // Assert that no task was created for cleaning up the files.
+    $this->assertEqual(0, $queue->numberOfItems(), 'No task was created for the feeds_sync_cache_feeds_http queue.');
+
+    // Unset last check and run cron.
+    variable_del('feeds_sync_cache_feeds_http_last_check');
+    feeds_cron();
+
+    // Assert that one task was created for cleaning up the files and that the
+    // variable for the last check was updated.
+    $this->assertEqual(1, $queue->numberOfItems(), 'One task was created for the feeds_sync_cache_feeds_http queue.');
+    $this->assertEqual(REQUEST_TIME, variable_get('feeds_sync_cache_feeds_http_last_check'));
+
+    // Unset last check and run cron again.
+    variable_del('feeds_sync_cache_feeds_http_last_check');
+    feeds_cron();
+
+    // Assert that there still is one task.
+    $this->assertEqual(1, $queue->numberOfItems(), 'One task exists for the feeds_sync_cache_feeds_http queue.');
+    $this->assertEqual(REQUEST_TIME, variable_get('feeds_sync_cache_feeds_http_last_check'));
+  }
+
+  /**
+   * Tests if a source is not refetched on a second import when the source did
+   * not change.
+   */
+  public function testSourceCaching() {
+    $this->setUpImporter();
+
+    $source_url = url('testing/feeds/nodes.csv', array('absolute' => TRUE));
+    $edit = array(
+      'feeds[FeedsHTTPFetcher][source]' => $source_url,
+    );
+    $this->drupalPost('import/node', $edit, t('Import'));
+
+    $this->assertText('Created 9 nodes');
+
+    // Ensure that the fetched content was cached in a file.
+    $file_url = 'private://feeds/cache/' . hash('sha256', $source_url);
+    $this->assertTrue(file_exists($file_url), format_string('The file @file_url exists.', array(
+      '@file_url' => $file_url,
+    )));
+
+    // Overwrite cached file, change one item.
+    $csv = file_get_contents($file_url);
+    $lines = explode("\n", $csv);
+    $lines[3] = '"Nam liber tempor","CHANGED IN CACHED FILE",1151766000,1';
+    $csv = implode("\n", $lines);
+    $this->verbose('<pre>' . $csv . '</pre>');
+    file_put_contents($file_url, $csv);
+
+    // Re-import file. Ensure that the data from the cache was used.
+    $this->drupalPost('import/node', $edit, t('Import'));
+    $this->assertText('Updated 1 node');
+
+    // Assert that node 3 had changed.
+    $node = node_load(3);
+    $this->assertEqual('Nam liber tempor', $node->title);
+    $this->assertEqual('CHANGED IN CACHED FILE', $node->body[LANGUAGE_NONE][0]['value']);
+  }
+
+  /**
+   * Tests if the source is refetched on a second import when the source
+   * changed.
+   */
+  public function testChangedSource() {
+    $this->setUpImporter();
+
+    $source_url = url('testing/feeds/nodes.csv', array('absolute' => TRUE));
+    $edit = array(
+      'feeds[FeedsHTTPFetcher][source]' => $source_url,
+    );
+    $this->drupalPost('import/node', $edit, t('Import'));
+
+    $this->assertText('Created 9 nodes');
+
+    // Ensure that the fetched content was cached in a file.
+    $file_url = 'private://feeds/cache/' . hash('sha256', $source_url);
+    $this->assertTrue(file_exists($file_url), format_string('The file @file_url exists.', array(
+      '@file_url' => $file_url,
+    )));
+
+    // Overwrite cached file, change one item.
+    $csv = file_get_contents($file_url);
+    $lines = explode("\n", $csv);
+    $lines[3] = '"Nam liber tempor","CHANGED IN CACHED FILE",1151766000,1';
+    $csv = implode("\n", $lines);
+    $this->verbose('<pre>' . $csv . '</pre>');
+    file_put_contents($file_url, $csv);
+
+    // Set flag that the source has changed.
+    variable_set('feeds_tests_nodes_changed', TRUE);
+
+    // Re-import file. Ensure that the content was refetched.
+    $this->drupalPost('import/node', $edit, t('Import'));
+    $this->assertText('Updated 2 nodes');
+
+    // Assert that node 1 and 4 changed.
+    $node = node_load(1);
+    $this->assertEqual('Ut wisi enim ad minim veniam', $node->title);
+    $this->assertEqual('CHANGED IN SOURCE', $node->body[LANGUAGE_NONE][0]['value']);
+    $node = node_load(4);
+    $this->assertEqual('Typi non habent', $node->title);
+    $this->assertEqual('CHANGED IN SOURCE', $node->body[LANGUAGE_NONE][0]['value']);
+
+    // Assert that node 3 had NOT changed.
+    $node = node_load(3);
+    $this->assertEqual('Nam liber tempor', $node->title);
+    $this->assertNotEqual('CHANGED IN CACHED FILE', $node->body[LANGUAGE_NONE][0]['value']);
+  }
+
+  /**
+   * Tests that a non-writable cache directory does not result into fatal
+   * errors.
+   */
+  public function testNonWritableCacheDirectory() {
+    // Set the cache directory to a non-writable directory.
+    variable_set('feeds_http_file_cache_dir', 'file://non-writeable-dir/feeds');
+
+    $this->setUpImporter();
+
+    $source_url = url('testing/feeds/nodes.csv', array('absolute' => TRUE));
+    $edit = array(
+      'feeds[FeedsHTTPFetcher][source]' => $source_url,
+    );
+    $this->drupalPost('import/node', $edit, t('Import'));
+
+    // Assert that a message is being displayed and that we are back on the
+    // import form.
+    $this->assertText("The feeds cache directory (file://non-writeable-dir/feeds) either cannot be created or is not writable. You can change the cache directory by setting the 'feeds_http_file_cache_dir' variable.");
+    $this->assertFieldByName('feeds[FeedsHTTPFetcher][source]', $source_url);
   }
 
 }
