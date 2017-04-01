@@ -10,6 +10,9 @@ var Drupal = Drupal || {};
 			}
 
 	    $('.field-name-field-audio a, a.play').on('click', function(e){
+        $('.sticky-bottom').addClass('visible');
+        $('body').addClass('player-visible');
+
 	    	e.preventDefault();
 	    	play($(this).attr('href'));
 	    });
@@ -19,17 +22,19 @@ var Drupal = Drupal || {};
         $('body').toggleClass('player-visible');
       });
 
-
-      function fetch_all_radios_infos(){
+     function fetch_main_radio_infos(){
         $.ajax({
-          url: 'http://radio-panel.miraath.net/radiostations.json',
+          url: 'http://192.34.56.9/radiostations/0.json',
         })
-        .done(render_radios)
+        .done(render_main_radio)
       }
-      function render_radios(radios){
-        $("#radios").html(tmpl("radios_tmpl", {radios}));
+      function render_main_radio(radio_info){
+
+        $("#radio-stream-url").attr('href', radio_info.streaming_url);
+        $("#current_playing").text(radio_info.live_info.current_playing);
+        $("#listners-count").text(radio_info.live_info.listeners_count);
       }
-      fetch_all_radios_infos()
+      fetch_main_radio_infos()
     }
   }
 })(jQuery,Drupal);

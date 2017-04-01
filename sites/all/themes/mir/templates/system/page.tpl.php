@@ -33,7 +33,9 @@
 </header>
 <div class="row ticker-wrapper">
   <div class="col-sm-2">
-    <h3>جديد الموقع</h3>
+    <div class="sub-title-wrapper">
+      <h2 class="sub-title" >جديد الموقع</h2>
+    </div>
   </div>
   <div class="col-sm-8">
     <?php print $recent_content_ticker; ?>
