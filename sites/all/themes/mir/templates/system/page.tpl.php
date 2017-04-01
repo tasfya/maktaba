@@ -5,15 +5,6 @@
         <a class="logo flip navbar-btn pull-left" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
           <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
         </a>
-        <div class="social-icons">
-          <ul class="list-inline ">
-            <li><a href="http://bit.ly/1dTnfr9" title="تطبيق الاندرويد " target="_blank"><i class="fa fa-android"></i></a></li>
-            <li><a href="http://bit.ly/miraathios" title="تطبيق ابل"><i class="fa fa-apple"></i></a></li>
-            <li><a href="https://twitter.com/miraathnet" title="Twitter"><i class="fa fa-twitter-square"></i></a></li>
-            <li><a href="https://www.facebook.com/admin.ar.miraath" title="Facebook"><i class="fa fa-facebook-square"></i></a></li>
-            <li><a href="https://www.youtube.com/user/MiraathNet" title="Youtube"><i class="fa fa-youtube-square"></i></a></li>
-          </ul>
-        </div>
       <?php endif; ?>
 
       <?php if (!empty($primary_nav) || !empty($secondary_nav) || !empty($page['navigation'])): ?>
@@ -39,18 +30,31 @@
       </div>
     <?php endif; ?>
   </div>
-  <div class="ticker-wrapper">
-    <div class="row">
-      <div class="col-sm-2">
-        <h3>جديد الموقع</h3>
-      </div>
-      <div class="col-sm-10">
-        <?php print $recent_content_ticker; ?>
-      </div>
+</header>
+<div class="row ticker-wrapper">
+  <div class="col-sm-2">
+    <h3>جديد الموقع</h3>
+  </div>
+  <div class="col-sm-8">
+    <?php print $recent_content_ticker; ?>
+  </div>
+  <div class="col-sm-2">
+    <div class="social-icons">
+      <ul class="list-inline ">
+        <li><a href="http://bit.ly/1dTnfr9" title="تطبيق الاندرويد " target="_blank"><i class="fa fa-android"></i></a></li>
+        <li><a href="http://bit.ly/miraathios" title="تطبيق ابل"><i class="fa fa-apple"></i></a></li>
+        <li><a href="https://twitter.com/miraathnet" title="Twitter"><i class="fa fa-twitter-square"></i></a></li>
+        <li><a href="https://www.facebook.com/admin.ar.miraath" title="Facebook"><i class="fa fa-facebook-square"></i></a></li>
+        <li><a href="https://www.youtube.com/user/MiraathNet" title="Youtube"><i class="fa fa-youtube-square"></i></a></li>
+      </ul>
     </div>
   </div>
-</header>
-
+</div>
+<?php
+    if(drupal_is_front_page()){
+      require(drupal_get_path('theme', 'mir').'/templates/system/front-content.tpl.php');
+    }
+?>
 <div class="main-container <?php print $container_class; ?>">
 
   <div class="row">
@@ -83,11 +87,6 @@
         <ul class="action-links"><?php print render($action_links); ?></ul>
       <?php endif; ?>
       <?php print render($page['content']); ?>
-      <?php
-      if(drupal_is_front_page()){
-        require(drupal_get_path('theme', 'mir').'/templates/system/front-content.tpl.php');
-      }
-      ?>
     </section>
 
     <?php if (!empty($page['sidebar_second'])): ?>

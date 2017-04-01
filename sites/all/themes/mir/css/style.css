@@ -5,13 +5,16 @@
 
 body{
 	font-family: 'Amiri', serif;
-  font-size: 20px;
+  font-size: 15px;
   background: url(../images/head.png);
   background-repeat: no-repeat;
   width: 100%;
 }
 body.player-visible{
   padding-bottom: 60px;
+}
+.h2, h2 {
+  font-size: 20px;
 }
 a, .navbar-default .navbar-nav > li > a {
 	color: #065A6A;
@@ -29,28 +32,50 @@ li{
 .field-label{
   color: #0894a5
 }
+.navbar.container,.navbar.container-fluid {
+   margin-top:0px
+  background: url(/sites/all/themes/mir/images/head.png) 2px 0px;
+  background-repeat: no-repeat;
+}
+
+.navbar.container,
+.navbar.container-fluid{
+  margin-top: 0;
+}
 .navbar-default {
   background-color: transparent;
   border: 0;
 }
+.navbar {
+  margin-bottom: 0px;
+}
 #navbar ul.menu {
   margin-top: 70px;
 }
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
+
+.navbar-default .navbar-nav a{
   color: #065A6A;
-  background-color: transparent;
+  border-bottom: 4px solid #a7e1e8;
 }
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
+.navbar-default .navbar-nav .active a,
+.navbar-default .navbar-nav a:hover,
+.navbar-default .navbar-nav .active a:hover,
+.navbar-default .navbar-nav a:focus{
   color: #065A6A;
-  background-color: transparent;
-  border-bottom: 5px solid #065A6A;
+  background: transparent;
+  border-bottom: 5px solid #0894a5;
+}
+ul li.collapsed, ul li.expanded, ul li.leaf {
+  list-style: none;
+  margin-right: 20px;
 }
 .social-icons {
-  margin-right: 29px;
+  padding-top: 4px;
 }
+.social-icons .fa{
+  font-size:18px
+}
+
 .front #block-system-main,
 .front .main-container h1{
 	display: none;
@@ -87,23 +112,34 @@ li{
   padding: 5px 8px 0px;
 }
 .ticker-wrapper {
-  background: #f1f1f1;
+  background: #f8f8f8;
   font-size: 16px;
   line-height: 35px;
+  margin-bottom: 40px;
 }
 .ticker-wrapper ul{
   margin-bottom: 0px;
 }
-.ticker-wrapper h3{
+.ticker-wrapper h3, h2.sub-title{
   margin-top: 0px;
   margin-bottom: 0px;
-  background-color: #c5ecf1;
   padding: 8px;
-  color: #0894A5;
+  color: #363636;
   font-weight: bold;
   font-size: 16px;
+  margin-right: 16px;
+  background: #c5ecf1;
+  height: 38px;
 }
-
+.ticker-wrapper h3:before, h2.sub-title:before{
+  content: "";
+  position: absolute;
+  right: 13px;
+  top: 0px;
+  height: 34px;
+  width: 10px;
+  background-color: #0894A5;
+}
 /*Fatawa detail*/
 .node-fatawa .field{
     margin: 25px 0;
@@ -128,7 +164,7 @@ li{
 }
 
 .side-bar-first {
-    background: #e0e0e0;
+    background: rgba(224, 224, 224, 0.23);
     padding-top: 10px;
     padding-bottom: 20px;
 }
@@ -141,12 +177,22 @@ li{
 .side-bar-first h2 {
   background-color: #c5ecf1;
   padding: 8px;
-  color: #0894A5;
+  color: #363636;
   font-weight: bold;
   line-height: 1;
   text-transform: uppercase;
   margin: 20px 0 20px 0;
 }
+.side-bar-first h2:before{
+  content: "";
+  position: absolute;
+  right: 1px;
+  top: 30px;
+  height: 36px;
+  width: 10px;
+  background-color: #0894A5;
+}
+
 /*To replace related sites*/
 .custom-button {
   display: block;
@@ -214,3 +260,104 @@ li{
   transform: rotate(-10deg) translate3d( 0, 0, 0);
 }
 /*End of related sites*/
+
+.page-node .node-type-fatawa h1{
+  display: none;
+}
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+  .navbar-collapse nav{
+    float: left;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+  .navbar.container {
+    max-width: 1170px;
+  }
+}
+
+
+/* Tab style*/
+
+/* Tabs panel */
+.latest-wrapper {
+  border-bottom: solid 3px #ccc;
+  margin-bottom: 20px;
+}
+.tabbable-panel {
+  border:1px solid #eee;
+  padding: 10px;
+}
+ul.pager {
+  margin: 0;
+}
+/* Default mode */
+.tabbable-line > .nav-tabs {
+  border: none;
+  margin: 0px;
+}
+.tabbable-line > .nav-tabs > li {
+  margin-right: 2px;
+}
+.tabbable-line > .nav-tabs > li > a {
+  border: 0;
+  margin-right: 0;
+  color: #737373;
+}
+.tabbable-line > .nav-tabs > li > a > i {
+  color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+  border-bottom: 4px solid #a7e1e8;
+}
+.tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
+  border: 0;
+  background: none !important;
+  color: #333333;
+}
+.tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
+  color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
+  margin-top: 0px;
+}
+.tabbable-line > .nav-tabs > li.active {
+  border-bottom: 4px solid #0894a5;
+  position: relative;
+}
+.tabbable-line > .nav-tabs > li.active > a {
+  border: 0;
+  color: #333333;
+}
+.tabbable-line > .nav-tabs > li.active > a > i {
+  color: #404040;
+}
+.tabbable-line > .tab-content {
+  margin-top: -3px;
+  background-color: #fff;
+  border: 0;
+  border-top: 1px solid #eee;
+  padding: 15px 0;
+}
+.portlet .tabbable-line > .tab-content {
+  padding-bottom: 0;
+}
+
+
