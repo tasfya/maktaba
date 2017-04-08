@@ -82,6 +82,19 @@ ul li.collapsed, ul li.expanded, ul li.leaf {
 .front .main-container h1{
 	display: none;
 }
+.view-display-id-tafrigh .views-field.views-field-field-tafrigh-category {
+  background: #0894a5;
+  color: #fff;
+  padding: 6px 4px 4px;
+  font-size: 11px;
+}
+.view-display-id-tafrigh .col{
+  text-align: center;
+}
+.view-display-id-tafrigh .views-field.views-field-title {
+  margin: 10px 0;
+}
+
 .sticky-bottom {
   /* just for demo */
   text-align:center;
