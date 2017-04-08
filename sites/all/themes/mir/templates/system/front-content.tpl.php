@@ -56,6 +56,9 @@
             <li role="presentation">
               <a href="#fawaed" aria-controls="tab" role="tab" data-toggle="tab"> الفوائد المنتقاة</a>
             </li>
+            <li role="presentation">
+              <a href="#tafrigh" aria-controls="tab" role="tab" data-toggle="tab">التفريغات</a>
+            </li>
           </ul>
 
           <!-- Tab panes -->
@@ -65,6 +68,9 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="fawaed">
               <?php print views_embed_view('front_latest_content', 'fawaed') ?>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tafrigh">
+              <?php print views_embed_view('front_latest_content', 'tafrigh') ?>
             </div>
           </div>
         </div>
