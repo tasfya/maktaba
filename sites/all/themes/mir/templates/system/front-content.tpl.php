@@ -95,6 +95,19 @@
 
       <div class="block-wrapper">
         <div class="sub-title-wrapper">
+          <a href="/node/add/question" class="custom-button" style="background-color: #28919d;" title="أرسل سؤالك">
+            <i class="fa fa-question custom-button-icon" style="height:50px !important;"></i>
+            <span class="custom-button-wrap">
+            <span class="custom-button-title">أرسل سؤالك</span>
+            <span class="custom-button-tagline">نرحب باستقبال أسئلتكم عبر قسم الفتاوي</span>
+            </span>
+            <em></em>
+          </a>
+        </div>
+      </div>
+
+      <div class="block-wrapper">
+        <div class="sub-title-wrapper">
           <h2 class="sub-title">التغريدات</h2>
         </div>
         <div class="tweet-feed">
