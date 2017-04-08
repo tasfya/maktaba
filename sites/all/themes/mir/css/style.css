@@ -188,7 +188,10 @@ h2.sub-title:before{
   height: 500px;
   overflow: scroll;
 }
-
+/*page fatwa*/
+.page-node.node-type-fatawa h1{
+  display: none;
+}
 /*To replace related sites*/
 .custom-button {
   display: block;
@@ -256,9 +259,26 @@ h2.sub-title:before{
   transform: rotate(-10deg) translate3d( 0, 0, 0);
 }
 /*End of related sites*/
-
+h2.block-title {
+  padding: 6px;
+  color: #363636;
+  font-weight: bold;
+  font-size: 16px;
+  background: #c5ecf1;
+  height: 30px;
+  margin-bottom: 0;
+}
+.facetapi-facetapi-links {
+  padding-right: 0;
+  padding: 20px 0;
+  background: rgba(224,224,224,0.23);
+}
 .page-node .node-type-fatawa h1{
   display: none;
+}
+.page-node .node-type-article{
+  max-width: 600px;
+  font-size: 20px;
 }
 /* Custom, iPhone Retina */
 @media only screen and (min-width : 320px) {
@@ -279,6 +299,13 @@ h2.sub-title:before{
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
+  .node-type-fatawa section#block-system-main,
+  .node-type-makalate section#block-system-main {
+    max-width: 600px;
+    font-size: 18px;
+    line-height: 30px;
+    padding-right: 100px;
+  }
 
 }
 
@@ -287,6 +314,7 @@ h2.sub-title:before{
   .navbar.container {
     max-width: 1170px;
   }
+
 }
 
 
@@ -356,4 +384,12 @@ ul.pager {
   padding-bottom: 0;
 }
 
+/*b3 overrides*/
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+  background-color: #066275;
+  border-color: #066275;
+}
+.pagination>li>a, .pagination>li>span {
+  color: #066275;
+}
 
