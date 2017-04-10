@@ -74,6 +74,12 @@
             </div>
           </div>
         </div>
+
+        <div class="latest-videos">
+          <h2 class="sub-title">جديد المرئيات</h2>
+          <?php print views_embed_view('latest-videos'); ?>
+
+        </div>
       </div>
     </div>
 
