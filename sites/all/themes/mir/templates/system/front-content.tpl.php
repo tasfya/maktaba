@@ -110,7 +110,7 @@
         <div class="sub-title-wrapper">
           <h2 class="sub-title">التغريدات</h2>
         </div>
-        <div class="tweet-feed">
+        <div class="tweet-feed hidden-xs">
           <a class="twitter-timeline" href="https://twitter.com/MiraathNet">Tweets by MiraathNet</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
       </div>
