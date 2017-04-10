@@ -35,6 +35,29 @@ var Drupal = Drupal || {};
         $("#listners-count").text(radio_info.live_info.listeners_count);
       }
       fetch_main_radio_infos()
+
+      // all radios
+      $(function() {
+        function fetch_all_radios_infos(){
+          $.ajax({
+            url: 'http://192.34.56.9/radiostations.json',
+          })
+          .done(render_radios)
+        }
+        function render_radios(radios){
+          $("#radios").html(tmpl("radios_tmpl", {radios}));
+
+          // dirty
+          $('.field-name-field-audio a, a.play').on('click', function(e){
+            $('.sticky-bottom').addClass('visible');
+            $('body').addClass('player-visible');
+
+            e.preventDefault();
+            play($(this).attr('href'));
+          });
+        }
+        fetch_all_radios_infos()
+      });
     }
   }
 })(jQuery,Drupal);

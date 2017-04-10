@@ -90,11 +90,16 @@ ul li.collapsed, ul li.expanded, ul li.leaf {
 }
 .view-display-id-tafrigh .col{
   text-align: center;
+  margin-bottom: 25px;
 }
 .view-display-id-tafrigh .views-field.views-field-title {
-  margin: 10px 0;
+  margin: 3px 0;
 }
-
+.view-display-id-tafrigh .views-field.views-field-field-scholar-1 {
+  color: #0894a5;
+  font-size: 12px;
+  padding: 5px 0 5px;
+}
 .sticky-bottom {
   /* just for demo */
   text-align:center;
@@ -200,6 +205,17 @@ h2.sub-title:before{
 .tweet-feed {
   height: 500px;
   overflow: scroll;
+}
+/*radios*/
+
+.radio-wrapper h2 {
+  background-color: #cddcf6;
+  padding: 8px;
+  color: #243b64;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0 0 20px;
+  position: relative;
 }
 /*page fatwa*/
 .page-node.node-type-fatawa h1{
@@ -406,3 +422,13 @@ ul.pager {
   color: #066275;
 }
 
+
+.site-footer footer{
+  background: #065a6a;
+  overflow: hidden;
+  color: #fff;
+  padding: 5px;
+  text-align: left;
+  margin-top: 100px;
+  z-index: 3;
+}

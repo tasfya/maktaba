@@ -53,9 +53,9 @@
   </div>
 </div>
 <?php
-    if(drupal_is_front_page()){
-      require(drupal_get_path('theme', 'mir').'/templates/system/front-content.tpl.php');
-    }
+  if(drupal_is_front_page()){
+    require(drupal_get_path('theme', 'mir').'/templates/system/front-content.tpl.php');
+  }
 ?>
 <div class="main-container <?php print $container_class; ?>">
 
@@ -114,7 +114,6 @@
   </div>
 </div>
 
-<footer>
-  <div class="col-sm-offset-1 col-sm-9">© موقع ميراث الأنبياء 2016 جميع الحقوق محفوظة</div>
-  <div class="col-sm-2"></div>
+<footer class="site-footer">
+  <div class="container">© موقع ميراث الأنبياء 2017 جميع الحقوق محفوظة</div>
 </footer>
