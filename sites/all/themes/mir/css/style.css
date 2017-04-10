@@ -432,3 +432,11 @@ ul.pager {
   margin-top: 100px;
   z-index: 3;
 }
+
+.view-latest-videos .views-field.views-field-title {
+  min-height: 37px;
+  text-align: center;
+}
+.view-latest-videos .col-lg-4 {
+  margin: 10px 0 40px
+}
