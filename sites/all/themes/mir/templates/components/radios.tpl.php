@@ -17,7 +17,7 @@
           <h2><%= radios[i].name %></h2>
           <p><%= radios[i].description %></p>
           <div>
-            <img src="http://192.34.56.9/<%=radios[i].logo%>" width="400">
+            <img src="http://radio-panel.miraath.net/<%=radios[i].logo%>" width="400">
           </div>
           <div class="streaming-info col-sm-6">
             <table class="table table-condensed table-hover">
