@@ -422,15 +422,12 @@ ul.pager {
   color: #066275;
 }
 
+.carousel-indicators .active {
+  background-color: #c5ecf1;
+}
 
 .site-footer footer{
-  background: #065a6a;
-  overflow: hidden;
   color: #fff;
-  padding: 5px;
-  text-align: left;
-  margin-top: 100px;
-  z-index: 3;
 }
 
 .view-latest-videos .views-field.views-field-title {
