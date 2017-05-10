@@ -421,7 +421,14 @@ ul.pager {
 .pagination>li>a, .pagination>li>span {
   color: #066275;
 }
-
+.carousel-control.left {
+  left: auto;
+  right: 0;
+}
+.carousel-control.right {
+  right: auto;
+  left: 0;
+}
 .carousel-indicators .active {
   background-color: #c5ecf1;
 }
