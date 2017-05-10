@@ -440,3 +440,11 @@ ul.pager {
 .view-latest-videos .col-lg-4 {
   margin: 10px 0 40px
 }
+
+span.flag-wrapper.flag-report a {
+  color: #ea0b0b;
+  font-size: 10px
+}
+.node .field {
+  margin-bottom: 10px;
+}
