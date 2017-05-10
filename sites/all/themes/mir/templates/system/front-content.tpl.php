@@ -101,9 +101,16 @@
         </div>
       </div>
 
-      <div class="block-wrapper">
-        <h2 class="sub-title">البطاقات</h2>
+        <div class="sub-title-wrapper">
+          <h2 class="sub-title">البطاقات</h2>
+        </div>
         <?php print views_embed_view('bitakate'); ?>
+
+      <div class="block-wrapper">
+        <div class="sub-title-wrapper">
+          <h2 class="sub-title">البطاقات</h2>
+        </div>
+        <?php print views_embed_view('latest_videos'); ?>
       </div>
 
       <div class="block-wrapper">
