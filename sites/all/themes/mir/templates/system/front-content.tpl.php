@@ -51,26 +51,26 @@
         <div class="tabbable-line">
           <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
-              <a href="#articles" aria-controls="tab" role="tab" data-toggle="tab">المقالات</a>
+              <a href="#tafrigh" aria-controls="tab" role="tab" data-toggle="tab">التفريغات</a>
             </li>
             <li role="presentation">
               <a href="#fawaed" aria-controls="tab" role="tab" data-toggle="tab"> الفوائد المنتقاة</a>
             </li>
             <li role="presentation">
-              <a href="#tafrigh" aria-controls="tab" role="tab" data-toggle="tab">التفريغات</a>
+              <a href="#articles" aria-controls="tab" role="tab" data-toggle="tab">المقالات</a>
             </li>
           </ul>
 
           <!-- Tab panes -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="articles">
-              <?php print views_embed_view('front_latest_content', 'articles') ?>
+              <?php print views_embed_view('front_latest_content', 'tafrigh') ?>
             </div>
             <div role="tabpanel" class="tab-pane" id="fawaed">
               <?php print views_embed_view('front_latest_content', 'fawaed') ?>
             </div>
             <div role="tabpanel" class="tab-pane" id="tafrigh">
-              <?php print views_embed_view('front_latest_content', 'tafrigh') ?>
+              <?php print views_embed_view('front_latest_content', 'articles') ?>
             </div>
           </div>
         </div>
