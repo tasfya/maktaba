@@ -43,37 +43,37 @@
         </div>
       </div>
 
-      <div class="latest-tafrigh">
+      <div class="latest-wrapper latest-tafrigh">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد التفريغات</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'tafrigh') ?>
       </div>
-      <div class="latest-bitakat">
+      <div class="latest-wrapper latest-bitakat">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد البطاقات</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'bitakat') ?>
       </div>
-      <div class="latest-matwiat">
+      <div class="latest-wrapper latest-matwiat">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد المطويات</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'matwiat') ?>
       </div>
-<!--       <div class="latest-fawaed">
+<!--       <div class="latest-wrapper latest-fawaed">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد الفوائد</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'fawaed') ?>
       </div>
-      <div class="latest-articles">
+      <div class="latest-wrapper latest-articles">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد المقالات</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'articles') ?>
       </div> -->
-      <div class="latest-videos">
+      <div class="latest-wrapper latest-videos">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد المرئيات</h2>
         </div>
