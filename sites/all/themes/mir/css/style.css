@@ -13,6 +13,9 @@ body{
 body.player-visible{
   padding-bottom: 60px;
 }
+.centered{
+  text-align: center;
+}
 .h2, h2 {
   font-size: 20px;
 }
@@ -31,6 +34,9 @@ li{
 }
 .field-label{
   color: #0894a5
+}
+i.fa.fa-4 {
+  font-size: 101px;
 }
 .navbar.container,.navbar.container-fluid {
    margin-top:0px
