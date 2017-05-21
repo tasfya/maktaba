@@ -43,19 +43,19 @@
         </div>
       </div>
 
-      <div class="latest-wrapper latest-tafrigh">
+      <div class="latest-wrapper centered latest-tafrigh">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد التفريغات</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'tafrigh') ?>
       </div>
-      <div class="latest-wrapper latest-bitakat">
+      <div class="latest-wrapper centered latest-bitakat">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد البطاقات</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'bitakat') ?>
       </div>
-      <div class="latest-wrapper latest-matwiat">
+      <div class="latest-wrapper centered latest-matwiat">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد المطويات</h2>
         </div>

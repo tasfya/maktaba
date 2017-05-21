@@ -101,10 +101,11 @@ ul li.collapsed, ul li.expanded, ul li.leaf {
 .view-display-id-tafrigh .views-field.views-field-title {
   margin: 3px 0;
 }
-.view-display-id-tafrigh .views-field.views-field-field-scholar-1 {
+.latest-wrapper .views-field-field-scholar-1 {
   color: #0894a5;
   font-size: 12px;
   padding: 5px 0 5px;
+  text-align: center;
 }
 .sticky-bottom {
   /* just for demo */
@@ -356,9 +357,13 @@ h2.block-title {
 /* Tab style*/
 
 /* Tabs panel */
+
+.latest-wrapper .sub-title-wrapper {
+  margin-bottom: 20px;
+}
 .latest-wrapper {
   border-bottom: solid 3px #ccc;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 .tabbable-panel {
   border:1px solid #eee;
@@ -366,6 +371,10 @@ h2.block-title {
 }
 ul.pager {
   margin: 0;
+}
+.latest-wrapper .views-field-field-image,
+.latest-wrapper .views-field-field-cover {
+  min-height: 235px;
 }
 /* Default mode */
 .tabbable-line > .nav-tabs {
@@ -447,8 +456,8 @@ ul.pager {
   min-height: 37px;
   text-align: center;
 }
-.view-latest-videos .col-lg-4 {
-  margin: 10px 0 40px
+.latest-wrapper .col-lg-4 {
+  margin: 10px 0 40px;
 }
 
 span.flag-wrapper.flag-report a {
