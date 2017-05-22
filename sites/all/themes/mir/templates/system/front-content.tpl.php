@@ -43,36 +43,54 @@
         </div>
       </div>
 
+      <div class="sub-title-wrapper">
+        <h2 class="sub-title">جديد المكتبة المقروؤة</h2>
+      </div>
+      <div class="latest-wrapper" role="tabpanel tabbable-panel">
+        <!-- Nav tabs -->
+        <div class="tabbable-line">
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#articles" aria-controls="articles" role="tab" data-toggle="tab">جديد المقال</a>
+            </li>
+            <li role="presentation">
+              <a href="#fawaed" aria-controls="tab" role="tab" data-toggle="tab">جديد الفوائ</a>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="articles">
+              <?php print views_embed_view('front_latest_content', 'articles') ?>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="fawaed">
+              <?php print views_embed_view('front_latest_content', 'fawaed') ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="latest-wrapper latest-tafrigh">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد التفريغات</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'tafrigh') ?>
       </div>
+
       <div class="latest-wrapper latest-bitakat">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد البطاقات</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'bitakat') ?>
       </div>
+
       <div class="latest-wrapper latest-matwiat">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد المطويات</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'matwiat') ?>
       </div>
-<!--       <div class="latest-wrapper latest-fawaed">
-        <div class="sub-title-wrapper">
-          <h2 class="sub-title">جديد الفوائد</h2>
-        </div>
-        <?php print views_embed_view('front_latest_content', 'fawaed') ?>
-      </div>
-      <div class="latest-wrapper latest-articles">
-        <div class="sub-title-wrapper">
-          <h2 class="sub-title">جديد المقالات</h2>
-        </div>
-        <?php print views_embed_view('front_latest_content', 'articles') ?>
-      </div> -->
+
       <div class="latest-wrapper latest-videos">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد المرئيات</h2>
@@ -112,7 +130,7 @@
 
       <div class="block-wrapper">
         <div class="sub-title-wrapper">
-          <h2 class="sub-title">البطاقات</h2>
+          <h2 class="sub-title">إعلانات الدروس المباشرة</h2>
         </div>
         <?php print views_embed_view('announcement'); ?>
       </div>
