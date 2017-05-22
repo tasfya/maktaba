@@ -54,7 +54,7 @@
               <a href="#articles" aria-controls="articles" role="tab" data-toggle="tab">جديد المقال</a>
             </li>
             <li role="presentation">
-              <a href="#fawaed" aria-controls="tab" role="tab" data-toggle="tab">جديد الفوائ</a>
+              <a href="#fawaed" aria-controls="tab" role="tab" data-toggle="tab">جديد الفوائد</a>
             </li>
           </ul>
 
