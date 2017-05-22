@@ -371,7 +371,7 @@ h2.block-title {
 .latest-wrapper .sub-title-wrapper {
   margin-bottom: 20px;
 }
-.latest-wrapper .views-field-title {
+.latest-wrapper .col .views-field-title {
   text-align: center;
   margin-top: 20px;
 }
