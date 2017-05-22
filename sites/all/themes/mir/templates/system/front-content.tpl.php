@@ -86,7 +86,7 @@
         <div class="sub-title-wrapper">
           <h2 class="sub-title">يبث الآن في الإذاعة</h2>
         </div>
-        <div class="centered">
+        <div class="centered mic-wrapper">
           <i class="fa fa-4 fa-microphone"></i>
         </div>
         <div class="centered">
