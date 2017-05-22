@@ -38,6 +38,7 @@ li{
 i.fa.fa-4 {
   font-size: 101px;
 }
+
 .navbar.container,.navbar.container-fluid {
    margin-top:0px
   background: url(/sites/all/themes/mir/images/head.png) 2px 0px;
@@ -208,6 +209,9 @@ h2.sub-title:before{
 .main-radio-player-wrapper .main-radio-player {
   background: #fff;
   padding: 10px;
+}
+.main-radio-player .table{
+  margin-bottom: 0px;
 }
 .tweet-feed {
   height: 500px;

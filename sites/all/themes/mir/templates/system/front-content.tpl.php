@@ -43,19 +43,19 @@
         </div>
       </div>
 
-      <div class="latest-wrapper centered latest-tafrigh">
+      <div class="latest-wrapper latest-tafrigh">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد التفريغات</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'tafrigh') ?>
       </div>
-      <div class="latest-wrapper centered latest-bitakat">
+      <div class="latest-wrapper latest-bitakat">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد البطاقات</h2>
         </div>
         <?php print views_embed_view('front_latest_content', 'bitakat') ?>
       </div>
-      <div class="latest-wrapper centered latest-matwiat">
+      <div class="latest-wrapper latest-matwiat">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">جديد المطويات</h2>
         </div>
@@ -86,14 +86,27 @@
         <div class="sub-title-wrapper">
           <h2 class="sub-title">يبث الآن في الإذاعة</h2>
         </div>
+        <div class="centered">
+          <i class="fa fa-4 fa-microphone"></i>
+        </div>
+        <div class="centered">
+          <span id="listners-count"></span><i class="fa fa-headphones" aria-hidden="true"></i>
+        </div>
         <div class="main-radio-player">
-          <span id="current_playing"></span>
-          <span class="align-center">
-            <a id="radio-stream-url" href="#" class="play">
-              <i class="fa fa-play"></i>
-            </a>
-            <span id="listners-count"></span><i class="fa fa-headphones" aria-hidden="true"></i>
-          </span>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <td>
+                  <span id="current_playing"></span>
+                </td>
+                <td>
+                  <a id="radio-stream-url" href="#" class="play">
+                    <i class="fa fa-play"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
