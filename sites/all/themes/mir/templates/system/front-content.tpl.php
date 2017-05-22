@@ -114,7 +114,7 @@
         <div class="sub-title-wrapper">
           <h2 class="sub-title">البطاقات</h2>
         </div>
-        <?php print views_embed_view('bitakate'); ?>
+        <?php print views_embed_view('announcement'); ?>
       </div>
 
       <div class="block-wrapper">
