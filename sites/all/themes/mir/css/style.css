@@ -371,7 +371,7 @@ h2.block-title {
 .latest-wrapper .sub-title-wrapper {
   margin-bottom: 20px;
 }
-.latest-wrapper .col .views-field-title {
+.col .views-field-title {
   text-align: center;
   margin-top: 20px;
 }
@@ -480,4 +480,14 @@ span.flag-wrapper.flag-report a {
 }
 .node .field {
   margin-bottom: 10px;
+}
+.view-display-id-page_12 .col .views-field-title {
+  text-align: center;
+  margin-top: 20px;
+}
+.view-display-id-page_12 .col{
+  margin-bottom:30px
+}
+.view-display-id-page_12 .views-field.views-field-field-bitaka {
+  min-height: 195px;
 }
