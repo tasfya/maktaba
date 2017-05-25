@@ -83,6 +83,7 @@ function feeds_tests_node_load($nodes) {
  * Changes runtime limit for feeds_source_import queue.
  *
  * @see FeedsFileFetcherTestCase::testRemoveFileAfterImportInBackground()
+ * @see FeedsFileHTTPTestCase::testImportSourceWithMultipleCronRuns()
  */
 function feeds_tests_cron_queue_info_alter(&$queues) {
   $feeds_source_import_queue_time = variable_get('feeds_tests_feeds_source_import_queue_time', FALSE);
@@ -197,6 +198,7 @@ function feeds_tests_files_empty() {
  * @see FeedsFileHTTPTestCase::testHttpRequestUsingFileCache()
  * @see FeedsFileHTTPTestCase::testSourceCaching()
  * @see FeedsFileHTTPTestCase::testChangedSource()
+ * @see FeedsFileHTTPTestCase::testImportSourceWithMultipleCronRuns()
  */
 function feeds_tests_nodes() {
   if (variable_get('feeds_tests_nodes_changed', FALSE)) {
@@ -464,6 +466,7 @@ function feeds_tests_feeds_after_parse(FeedsSource $source, FeedsParserResult $r
  * Implements hook_feeds_after_save().
  *
  * @see FeedsFileFetcherTestCase::testRemoveFileAfterImportInBackground()
+ * @see FeedsFileHTTPTestCase::testImportSourceWithMultipleCronRuns()
  */
 function feeds_tests_feeds_after_save() {
   $sleep = variable_get('feeds_tests_feeds_after_save_sleep', FALSE);

@@ -436,7 +436,7 @@ class FeedsEnclosure extends FeedsElement {
    */
   public function getContent() {
     feeds_include_library('http_request.inc', 'http_request');
-    $result = http_request_get($this->getUrlEncodedValue());
+    $result = feeds_http_request($this->getUrlEncodedValue());
     http_request_check_result($this->getUrlEncodedValue(), $result);
     return $result->data;
   }

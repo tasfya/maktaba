@@ -33,6 +33,25 @@ class FeedsNodeProcessor extends FeedsProcessor {
   }
 
   /**
+   * Overrides parent::languageOptions().
+   */
+  public function languageOptions() {
+    // Content types can have "extended" language enabled, allowing all
+    // available languages, not just enabled. Account for this here.
+    if (module_exists('i18n_node')) {
+      $node = new stdClass();
+      $node->type = $this->bundle();
+      $node->is_new = TRUE;
+      node_object_prepare($node);
+      $languages = array(LANGUAGE_NONE => t('Language neutral')) + i18n_node_language_list($node);
+      return $languages;
+    }
+
+    // If i18n_node is not enabled, default to enabled languages.
+    return parent::languageOptions();
+  }
+
+  /**
    * Creates a new node in memory and returns it.
    */
   protected function newEntity(FeedsSource $source) {
