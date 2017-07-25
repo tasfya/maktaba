@@ -24,7 +24,7 @@
               <a href="#fatawas" aria-controls="tab" role="tab" data-toggle="tab">الفتاوى</a>
             </li>
             <li role="presentation">
-              <a href="#dawrat" aria-controls="tab" role="tab" data-toggle="tab">الدورات العلمية</a>
+              <a href="#dawrat" aria-controls="tab" role="tab" data-toggle="tab">الدورات الشرعية</a>
             </li>
           </ul>
 
