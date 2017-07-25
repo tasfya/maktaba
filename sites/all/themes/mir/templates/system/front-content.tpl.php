@@ -23,6 +23,9 @@
             <li role="presentation">
               <a href="#fatawas" aria-controls="tab" role="tab" data-toggle="tab">الفتاوى</a>
             </li>
+            <li role="presentation">
+              <a href="#dawrat" aria-controls="tab" role="tab" data-toggle="tab">الدورات العلمية</a>
+            </li>
           </ul>
 
           <!-- Tab panes -->
@@ -38,6 +41,9 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="fatawas">
               <?php print views_embed_view('front_latest_content', 'fatawas') ?>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="dawrat">
+              <?php print views_embed_view('dawarat_block') ?>
             </div>
           </div>
         </div>
