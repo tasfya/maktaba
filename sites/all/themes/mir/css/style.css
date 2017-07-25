@@ -24,6 +24,8 @@ a, .navbar-default .navbar-nav > li > a {
   -webkit-transition: all .25s;
   -moz-transition: all .25s;
   transition: all .25s;
+  padding: 0px 12px;
+  font-size: 14px;
 }
 a:hover, .navbar-default .navbar-nav > li > a:hover {
 	color: #067280;
