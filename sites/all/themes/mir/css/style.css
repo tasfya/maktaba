@@ -19,6 +19,9 @@ body.player-visible{
 .h2, h2 {
   font-size: 20px;
 }
+h2 a {
+  font-size: 20px;
+}
 a, .navbar-default .navbar-nav > li > a {
   color: #065A6A;
   -webkit-transition: all .25s;
@@ -494,4 +497,9 @@ span.flag-wrapper.flag-report a {
 }
 .view-display-id-page_12 .views-field.views-field-field-bitaka {
   min-height: 195px;
+}
+
+.view-taxonomy-term .views-row {
+  margin-bottom: 70px;
+  border-bottom: 3px solid #0994a5;
 }
