@@ -58,6 +58,7 @@
 <head>
   <link rel="profile" href="<?php print $grddl_profile; ?>" />
   <meta charset="utf-8">
+<meta name="google-site-verification" content="wZrsL7eHhR0AVR-7r6mcxrLK9lItIdbVA22FVX3rWxw" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php print $head; ?>
   <title><?php print $head_title; ?></title>
