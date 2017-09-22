@@ -27,6 +27,7 @@ services:
     networks:
       - private-network
   solr:
+    restart: on-failure
     image: twinbit/docker-drupal-solr
     hostname: solr
     ports:
