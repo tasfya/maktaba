@@ -1,10 +1,12 @@
 /**
  * Place your custom styles here.
  */
-@import url('https://fonts.googleapis.com/css?family=Lateef&subset=arabic');
+@import url('https://fontlibrary.org/face/droid-arabic-naskh');
 
 body{
-	font-family: 'Lateef', cursive;
+  font-family: 'DroidArabicNaskhRegular'; 
+   font-weight: normal; 
+   font-style: normal; 
   font-size: 15px;
   background: url(../images/head.png);
   background-repeat: no-repeat;
