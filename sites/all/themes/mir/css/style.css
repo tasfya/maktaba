@@ -1,10 +1,10 @@
 /**
  * Place your custom styles here.
  */
-@import url('https://fonts.googleapis.com/css?family=Amiri');
+@import url('https://fonts.googleapis.com/css?family=Lateef&subset=arabic');
 
 body{
-	font-family: 'Amiri', serif;
+	font-family: 'Lateef', cursive;
   font-size: 15px;
   background: url(../images/head.png);
   background-repeat: no-repeat;
