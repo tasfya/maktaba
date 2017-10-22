@@ -1,10 +1,12 @@
 /**
  * Place your custom styles here.
  */
-@import url('https://fonts.googleapis.com/css?family=Amiri');
+@import url('https://fontlibrary.org/face/droid-arabic-naskh');
 
 body{
-	font-family: 'Amiri', serif;
+  font-family: 'DroidArabicNaskhRegular'; 
+   font-weight: normal; 
+   font-style: normal; 
   font-size: 15px;
   background: url(../images/head.png);
   background-repeat: no-repeat;
@@ -27,10 +29,10 @@ a, .navbar-default .navbar-nav > li > a {
   -webkit-transition: all .25s;
   -moz-transition: all .25s;
   transition: all .25s;
-  font-size: 14px;
+  font-size: 15px;
 }
 .navbar-default .navbar-nav > li > a {
-  padding: 0px 12px;
+  padding: 0px 4px;
 }
 a:hover, .navbar-default .navbar-nav > li > a:hover {
 	color: #067280;
