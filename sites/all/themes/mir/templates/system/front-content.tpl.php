@@ -1,9 +1,7 @@
 <div class="container">
-  <div class="carousel hidden-xs">
-    <iframe src="https://youtu.be/uHTn4hjN3LQ" frameborder="0"></iframe>
-  </div>
   <div class="row">
     <div class="col-sm-8">
+      <iframe src="https://youtu.be/uHTn4hjN3LQ" frameborder="0"></iframe>
       <div class="sub-title-wrapper">
         <h2 class="sub-title">جديد الصوتيات</h2>
       </div>
