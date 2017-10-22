@@ -4,9 +4,9 @@
 @import url('https://fontlibrary.org/face/droid-arabic-naskh');
 
 body{
-  font-family: 'DroidArabicNaskhRegular'; 
-   font-weight: normal; 
-   font-style: normal; 
+  font-family: 'DroidArabicNaskhRegular';
+   font-weight: normal;
+   font-style: normal;
   font-size: 15px;
   background: url(../images/head.png);
   background-repeat: no-repeat;
@@ -504,4 +504,8 @@ span.flag-wrapper.flag-report a {
 .view-taxonomy-term .views-row {
   margin-bottom: 70px;
   border-bottom: 3px solid #0994a5;
+}
+.tv-wrapper{
+  margin-bottom: 30px;
+  padding-bottom: 20px;
 }

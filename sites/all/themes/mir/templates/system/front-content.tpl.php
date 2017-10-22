@@ -4,12 +4,6 @@
       <div class="sub-title-wrapper">
         <h2 class="sub-title">جديد الصوتيات</h2>
       </div>
-      <div class="row">
-        <iframe src="https://www.youtube.com/embed/uHTn4hjN3LQ" frameborder="0"></iframe>
-      </div>
-      <div class="sub-title-wrapper">
-        <h2 class="sub-title">جديد الصوتيات</h2>
-      </div>
       <div class="latest-wrapper" role="tabpanel tabbable-panel">
         <!-- Nav tabs -->
         <div class="tabbable-line">
@@ -109,6 +103,14 @@
     </div>
 
     <div class="col-sm-4 side-bar-first">
+      <div class="tv-wrapper">
+        <div class="sub-title-wrapper">
+          <h2 class="sub-title">البث المباشر لقناة ميراث الأنبياء المرئية</h2>
+        </div>
+        <div class="row miraath-youtube">
+          <iframe src="https://www.youtube.com/embed/uHTn4hjN3LQ" frameborder="0"></iframe>
+        </div>
+      </div>
       <div class="block-wrapper main-radio-player-wrapper">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">يبث الآن في الإذاعة</h2>
