@@ -1,7 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-8">
-      <iframe src="https://www.youtube.com/embed/uHTn4hjN3LQ" frameborder="0"></iframe>
+      <div class="sub-title-wrapper">
+        <h2 class="sub-title">جديد الصوتيات</h2>
+      </div>
+      <div class="row">
+        <iframe src="https://www.youtube.com/embed/uHTn4hjN3LQ" frameborder="0"></iframe>
+      </div>
       <div class="sub-title-wrapper">
         <h2 class="sub-title">جديد الصوتيات</h2>
       </div>
