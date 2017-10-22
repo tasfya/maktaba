@@ -506,6 +506,10 @@ span.flag-wrapper.flag-report a {
   border-bottom: 3px solid #0994a5;
 }
 .tv-wrapper{
-  margin-bottom: 30px;
-  padding-bottom: 20px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+.row.miraath-youtube {
+  max-width: 360px;
+  margin: 10px auto;
 }
