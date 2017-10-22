@@ -1,6 +1,6 @@
 <div class="container">
   <div class="carousel hidden-xs">
-    <?php print $front_carousel; ?>
+    <iframe src="https://youtu.be/uHTn4hjN3LQ" frameborder="0"></iframe>
   </div>
   <div class="row">
     <div class="col-sm-8">
