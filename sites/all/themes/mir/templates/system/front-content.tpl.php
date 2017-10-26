@@ -108,7 +108,7 @@
           <h2 class="sub-title">البث المباشر لقناة ميراث الأنبياء المرئية</h2>
         </div>
         <div class="row miraath-youtube">
-          <iframe src="https://www.youtube.com/embed/uHTn4hjN3LQ" frameborder="0"></iframe>
+          <iframe src="https://www.youtube.com/embed/oYUX8GVEVh4" frameborder="0"></iframe>
         </div>
       </div>
       <div class="block-wrapper main-radio-player-wrapper">
