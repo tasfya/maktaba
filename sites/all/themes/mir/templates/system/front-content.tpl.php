@@ -1,6 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-8">
+      <div class="tv-wrapper">
+        <div class="sub-title-wrapper">
+          <h2 class="sub-title">البث المباشر لقناة ميراث الأنبياء المرئية</h2>
+        </div>
+        <div class="row miraath-youtube">
+          <iframe src="https://www.youtube.com/embed/oYUX8GVEVh4" frameborder="0"></iframe>
+        </div>
+      </div>
       <div class="sub-title-wrapper">
         <h2 class="sub-title">جديد الصوتيات</h2>
       </div>
@@ -103,14 +111,6 @@
     </div>
 
     <div class="col-sm-4 side-bar-first">
-      <div class="tv-wrapper">
-        <div class="sub-title-wrapper">
-          <h2 class="sub-title">البث المباشر لقناة ميراث الأنبياء المرئية</h2>
-        </div>
-        <div class="row miraath-youtube">
-          <iframe src="https://www.youtube.com/embed/live_stream?channel=UCMgtvQNueoOwjAgo-fMF-lQ" frameborder="0"></iframe>
-        </div>
-      </div>
       <div class="block-wrapper main-radio-player-wrapper">
         <div class="sub-title-wrapper">
           <h2 class="sub-title">يبث الآن في الإذاعة</h2>
