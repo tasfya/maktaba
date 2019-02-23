@@ -24,7 +24,7 @@ var Drupal = Drupal || {};
 
      function fetch_main_radio_infos(){
         $.ajax({
-          url: 'https://miraath.net/radio/radiostations/0.json',
+          url: 'https://radio-panel.miraath.net/radiostations/0.json',
         })
         .done(render_main_radio)
       }
@@ -40,7 +40,7 @@ var Drupal = Drupal || {};
       $(function() {
         function fetch_all_radios_infos(){
           $.ajax({
-            url: 'https://miraath.net/radio/radiostations.json',
+            url: 'https://radio-panel.miraath.net/radiostations.json',
           })
           .done(render_radios)
         }
